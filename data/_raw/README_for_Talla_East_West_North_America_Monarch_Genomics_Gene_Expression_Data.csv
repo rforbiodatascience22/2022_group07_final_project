@@ -1,0 +1,11 @@
+"""Talla_East_West_North_America_Monarch_Genomics_Gene_Expression_Data"""
+Data collected by Talla et al.
+Contact jderood@emory.edy for questions
+
+Column headings:
+Monarch = unique monarch butterfly identification number
+Population = eastern North America (east) or western North America (west)
+Sex = monarch sex (F: female; M:male)
+Groupnumber = data analysis grouping
+Gene = gene identification (379 = DPOGS201379; 203 = DPOGS211203; C2 = DPOGS202675; C4 = DPOGS200868; C5 = DPOGS215054; C7 = DPOGS211604)
+LogRelexpr18S28S = gene expression relative to average of 18S and 28S

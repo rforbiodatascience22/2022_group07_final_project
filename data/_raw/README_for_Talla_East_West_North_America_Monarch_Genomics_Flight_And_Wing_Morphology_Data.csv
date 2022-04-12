@@ -1,0 +1,21 @@
+"""Talla_East_West_North_America_Monarch_Genomics_Flight_And_Wing_Morphology_Data"""
+Data collected by Talla et al.
+Contact jderood@emory.edy for questions
+
+Column headings:
+ID = unique monarch identification number.
+Sex = butterfly sex (female: F or male: M)
+Population = eastern North America (east) or western North America (west)
+premass = monarch mass prior to flight trial (g)
+postmass = monarch mass following flight trial (g)
+weightloss = log10((premass-postmass)/distance)
+time.sec = flight duration in seconds
+time.min = flight duration in minutes
+distance = distance flown in meters
+averagevelocity = average velocity (m/s)
+maxvelocity = maximum velocity (m/s)
+power = flight power
+Area = wing area
+PC1 = principal component vector 1 (wing size)
+PC2 = principal component vector 2 (wing shape)
+groupnumeric = combined grouping variable for sex by population
