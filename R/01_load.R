@@ -12,7 +12,18 @@ expression_raw <- read.csv(file = "data/_raw/Talla_East_West_North_America_Monar
 
 
 # Wrangle data ------------------------------------------------------------
-my_data <- my_data_raw # %>% ...
+data_wide_expression <- expression_raw  %>% 
+  pivot_wider(id_cols = Monarch,
+               names_from = Gene,
+               values_from = c(LogRelexpr18S28S,Population,Sex,Groupnumber))
+
+data_wide_expression <- rename(data_wide_expression,"ID"="Monarch")
+data_wide_expression
+
+full_dataset <-data_wide_expression %>% 
+  full_join(morphology_raw, by = "ID")
+full_dataset
+
 
 
 # Write data --------------------------------------------------------------
