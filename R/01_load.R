@@ -1,5 +1,6 @@
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
+library(dplyr)
 
 
 # Define functions --------------------------------------------------------
@@ -12,9 +13,18 @@ expression_raw <- read.csv(file = "data/_raw/Talla_East_West_North_America_Monar
 
 
 # Wrangle data ------------------------------------------------------------
-my_data <- my_data_raw # %>% ...
+# my_data <- my_data_raw # %>% ...
+
+# Name ID columns the same in the two raw datasets
+expression_raw <- rename(expression_raw,
+                         ID = Monarch)
+# Merge data
+data_raw <- expression_raw %>% 
+  full_join(morphology_raw,
+            by = "ID")
+
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data,
-          file = "data/01_my_data.tsv")
+# write_tsv(x = my_data,
+#           file = "data/01_my_data.tsv")
