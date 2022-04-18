@@ -14,9 +14,16 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 my_data_clean_aug %>% ...
 
 
-# Model data
+# Model data --------------------------------------------------------------
 my_data_clean_aug %>% ...
 
+# for heatmap
+targets <- my_data_clean %>% select(matches("LogRelexpr|ID"))
+
+ggplot(targets,
+       mapping = aes(x = ,
+                     y = ID)) +
+  geom_tile()
 
 # Visualise data ----------------------------------------------------------
 my_data_clean_aug %>% ...

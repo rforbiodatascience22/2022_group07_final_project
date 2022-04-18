@@ -1,8 +1,11 @@
 # Define project functions ------------------------------------------------
-foo <- function(x){
-  return(2*x)
+
+# To check for and summarize NA values in a dataframe
+na_count <- function(df){
+    df %>% 
+    summarise_all(~ sum(is.na(.)))
 }
+
 bar <- function(x){
   return(x^2)
 }
-...
