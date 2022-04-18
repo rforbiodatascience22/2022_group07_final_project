@@ -6,6 +6,25 @@ na_count <- function(df){
     summarise_all(~ sum(is.na(.)))
 }
 
+# Common theme to be used in all figures in the project
+#install.packages("ggthemes")
+#library("ggthemes")
+theme_project <- function(){
+  theme_gdocs(base_size = 11)
+}
+
+# To rotate x-axis labels by 45 deg
+rotate_x <- function(){
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1))
+}
+
+# To rotate y-axis labels by 45 deg
+rotate_y <- function(){
+  theme(axis.text.y = element_text(angle = 45,
+                                   hjust = 1))
+}
+
 bar <- function(x){
   return(x^2)
 }

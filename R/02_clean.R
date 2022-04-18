@@ -17,15 +17,19 @@ my_data_clean <- my_data  %>%
   select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
 
 # Checking for NA values
-na_tibble <- na_count(my_data_clean)
+na_count(my_data_clean)
 
 my_data_clean %>% 
-  filter(!is_null(.)) %>% 
   group_by(Population) %>% 
-  count(ID) %>% 
-  ggplot(aes(x = Population,
-             y = n)) +
-  geom_boxplot()
+  ggplot(aes(x = ID,
+           y = premass,
+           color = Sex)) +
+  geom_point() +
+  facet_wrap(~Population,
+             scales = 'free') +
+  theme_project() +
+  rotate_x() +
+  rotate_y()
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
