@@ -24,7 +24,3 @@ rotate_y <- function(){
   theme(axis.text.y = element_text(angle = 45,
                                    hjust = 1))
 }
-
-bar <- function(x){
-  return(x^2)
-}
