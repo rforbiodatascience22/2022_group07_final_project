@@ -3,7 +3,7 @@ library("tidyverse")
 
 
 # Define functions --------------------------------------------------------
-#source(file = "R/99_project_functions.R")
+source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
@@ -25,7 +25,7 @@ expression_wide <- expression_raw %>%
 expression_wide <- rename(expression_wide, "ID" = "Monarch")
 
 #Joining expression and morphology data by ID
-final_data <- full_join(data_wide_expression,morphology_raw,by="ID")
+final_data <- full_join(expression_wide,morphology_raw,by="ID")
 
 # Write data --------------------------------------------------------------
 write_tsv(x = final_data,
