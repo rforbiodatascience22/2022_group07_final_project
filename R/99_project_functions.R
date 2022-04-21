@@ -10,7 +10,7 @@ na_count <- function(df){
 #install.packages("ggthemes")
 #library("ggthemes")
 theme_project <- function(){
-  theme_gdocs(base_size = 11)
+  theme_gdocs(base_size = 7)
 }
 
 # To rotate x-axis labels by 45 deg

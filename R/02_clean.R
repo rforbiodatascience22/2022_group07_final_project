@@ -17,7 +17,7 @@ my_data_clean <- my_data  %>%
   select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
 
 # Checking for NA values
-na_count(my_data_clean)
+na <- na_count(my_data_clean)
 
 my_data_clean %>% 
   group_by(Population) %>% 
