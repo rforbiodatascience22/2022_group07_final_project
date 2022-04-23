@@ -27,5 +27,5 @@ full_dataset
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data,
+write_tsv(x = full_dataset,
           file = "data/01_my_data.tsv")
