@@ -1,5 +1,4 @@
-library(ggthemes)
-
+library("ggthemes")
 # To check for and summarize NA values in a dataframe
 na_count <- function(df){
   df %>% 
@@ -65,11 +64,19 @@ datadistribution_plot <- function(x, y, df){
                  y = .data[[y]],
                  fill=Sex)) + 
     geom_split_violin() +
-    theme_project() +
-  geom_boxplot(aes(x = .data[[x]], 
+    geom_boxplot(aes(x = .data[[x]], 
                    y = .data[[y]]), 
-               width=0.3)
+               width=0.3)+
+    theme_project()
 }
 
-
+#function to save plots in images
+# save_plot <- function (plt) {
+#   ggsave(
+#     path = "results/plots/",
+#     filename = paste0(plt),
+#     device = "png",
+#     plot = plt
+#   )
+# }
 

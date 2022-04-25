@@ -2,8 +2,6 @@
 library("tidyverse")
 library("dplyr")
 library("ggpubr")
-library("viridis")
-
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
@@ -22,7 +20,6 @@ NAs <- na_count(my_data_clean)
 
 # Describe data --------------------------------------------------------
 
-
 #generate a list with the names of the columns that contain numeric values
 numeric_ones <- my_data_clean %>%
   select(where(is.numeric)) %>%
@@ -32,8 +29,9 @@ numeric_ones <- my_data_clean %>%
 #generate plot iterated for all variables
 plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
 
-# Wrangle data ------------------------------------------------------------
-# my_data_clean <- my_data # %>% ...
+#generate images of the plots
+#map(plots, ~save_plot(.x)) 
+
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
