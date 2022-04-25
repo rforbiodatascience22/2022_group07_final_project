@@ -6,12 +6,20 @@ library("tidyverse")
 source(file = "R/99_project_functions.R")
 
 
-# Load data ---------------------------------------------------------------
-my_data <- read_tsv(file = "data/01_my_data.tsv")
+# make sure that the gender columns contain the same values, 
+#in order to keep only one of those
+
+Sex<- data.frame(data_wide_expression$Sex_379, 
+                   data_wide_expression$Sex_203,
+                   data_wide_expression$Sex_C2,
+                   data_wide_expression$Sex_C4,
+                   data_wide_expression$Sex_C5,
+                   data_wide_expression$Sex_C7)
+
 
 
 # Wrangle data ------------------------------------------------------------
-my_data_clean <- my_data # %>% ...
+data_wide_expression[data_wide_expression$Sex_379 == data_wide_expression$Sex_203 ,"winner"] <- "a"
 
 
 # Write data --------------------------------------------------------------

@@ -16,7 +16,7 @@ expression_raw <- read.csv(file = "data/_raw/Talla_East_West_North_America_Monar
 data_wide_expression <- expression_raw %>% 
   pivot_wider(id_cols = Monarch,
               names_from = Gene,
-              values_from = c(LogRelexpr18S28S,Groupnumber,Population,Sex))
+              values_from = c(LogRelexpr18S28S))
 
 #Renaming ID column so that both dataframes match
 data_wide_expression <- rename(data_wide_expression, "ID" = "Monarch")
@@ -27,3 +27,4 @@ final_data <- full_join(data_wide_expression,morphology_raw,by="ID")
 # Write data --------------------------------------------------------------
 write_tsv(x = final_data,
           file = "data/01_my_data.tsv")
+
