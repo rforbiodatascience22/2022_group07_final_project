@@ -38,3 +38,4 @@ plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean)
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
           file = "data/02_my_data_clean.tsv")
+
