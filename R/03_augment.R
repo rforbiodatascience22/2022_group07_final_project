@@ -12,7 +12,10 @@ my_data_clean <- read_tsv(file = "data/02_my_data_clean.tsv")
 
 # Wrangle data ------------------------------------------------------------
 my_data_clean_aug <- my_data_clean %>% 
-  mutate(energy_consumed = (power * time.sec))
+  mutate(energy_consumed = (power * time.sec),
+         efficiency = 
+         )
+
 
 
 # Write data --------------------------------------------------------------

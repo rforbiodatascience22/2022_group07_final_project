@@ -1,6 +1,6 @@
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library(ggplot2)
+library("ggplot2")
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
@@ -35,7 +35,7 @@ numeric_ones <- my_data_clean %>%
 
 #generate plot iterated for all variables
 source(file = "R/99_project_functions.R")
-plots = map(numeric_ones, ~datadistribution_plot("Population", .) )
+plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
 
 
 # Write data --------------------------------------------------------------
