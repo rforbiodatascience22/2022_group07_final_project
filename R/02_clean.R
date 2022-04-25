@@ -1,31 +1,30 @@
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
 library("dplyr")
-library("gridExtra")
 library("ggpubr")
+library("viridis")
 
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
-# Describe data --------------------------------------------------------
-# tempstat <- final_data %>%
-#   summarise(across(
-#     .cols = is.numeric, 
-#     .fns = list(Mean = mean, SD = sd), na.rm = TRUE, 
-#     .names = "{col}_{fn}"
-#   ))
-# tempstat <-cbind(row.names = "Mean", tempstat)
-# sumstats <- describe(final_data)
+# Load data ---------------------------------------------------------------
+my_data <- as_tibble(read_tsv(file = "data/01_my_data.tsv"))
 
+
+# Eliminate unnecessary variables --------------------------------------------------------
+my_data_clean <- my_data  %>% 
+  select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
+
+# Check for NAs --------------------------------------------------------
+NAs <- na_count(my_data_clean)
+
+# Describe data --------------------------------------------------------
+data_distributions(my_data_clean)
+data_boxplots(my_data_clean)
 
 # Wrangle data ------------------------------------------------------------
 # my_data_clean <- my_data # %>% ...
-
-
-myplots <- lapply(colnames(final_data), plot_distribution, data = final_data)
-ggarrange(plotlist=myplots, nrow = 3, ncol = 3)
-data_distributions(final_data)
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
