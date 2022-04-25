@@ -20,8 +20,15 @@ my_data_clean <- my_data  %>%
 NAs <- na_count(my_data_clean)
 
 # Describe data --------------------------------------------------------
-data_distributions(my_data_clean)
-data_boxplots(my_data_clean)
+
+#generate a list with the names of the columns that contain numeric values
+numeric_ones <- my_data_clean %>%
+  select(where(is.numeric)) %>%
+  colnames() %>%
+  set_names() #this function belogs to purr package and uses the values of vector as names
+
+#generate plot iterated for all variables
+plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
 
 # Wrangle data ------------------------------------------------------------
 # my_data_clean <- my_data # %>% ...
