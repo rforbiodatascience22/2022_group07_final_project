@@ -7,8 +7,6 @@ na_count <- function(df){
 }
 
 # Common theme to be used in all figures in the project
-#install.packages("ggthemes")
-#library("ggthemes")
 theme_project <- function(){
   theme_gdocs(base_size = 7)
 }
