@@ -19,7 +19,9 @@ expression_raw <- as_tibble(read.csv(file = "data/_raw/Talla_East_West_North_Ame
 expression_wide <- expression_raw %>% 
   pivot_wider(id_cols = Monarch,
               names_from = Gene,
+
               values_from = c(LogRelexpr18S28S, Groupnumber, Population, Sex))
+
 
 #Renaming ID column so that both dataframes match
 expression_wide <- rename(expression_wide, "ID" = "Monarch")
@@ -34,3 +36,4 @@ final_data <- rename(final_data, "PC2_wing_shape" = "PC2")
 # Write data --------------------------------------------------------------
 write_tsv(x = final_data,
           file = "data/01_my_data.tsv")
+
