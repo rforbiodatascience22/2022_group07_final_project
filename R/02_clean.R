@@ -1,26 +1,39 @@
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
+library("dplyr")
+library("ggpubr")
+library("viridis")
 
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
 
-# make sure that the gender columns contain the same values, 
-#in order to keep only one of those
-
-Sex<- data.frame(data_wide_expression$Sex_379, 
-                   data_wide_expression$Sex_203,
-                   data_wide_expression$Sex_C2,
-                   data_wide_expression$Sex_C4,
-                   data_wide_expression$Sex_C5,
-                   data_wide_expression$Sex_C7)
+# Load data ---------------------------------------------------------------
+my_data <- as_tibble(read_tsv(file = "data/01_my_data.tsv"))
 
 
+# Eliminate unnecessary variables --------------------------------------------------------
+my_data_clean <- my_data  %>% 
+  select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
+
+# Check for NAs --------------------------------------------------------
+NAs <- na_count(my_data_clean)
+
+# Describe data --------------------------------------------------------
+
+
+#generate a list with the names of the columns that contain numeric values
+numeric_ones <- my_data_clean %>%
+  select(where(is.numeric)) %>%
+  colnames() %>%
+  set_names() #this function belogs to purr package and uses the values of vector as names
+
+#generate plot iterated for all variables
+plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
 
 # Wrangle data ------------------------------------------------------------
-data_wide_expression[data_wide_expression$Sex_379 == data_wide_expression$Sex_203 ,"winner"] <- "a"
-
+# my_data_clean <- my_data # %>% ...
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
