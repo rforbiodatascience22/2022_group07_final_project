@@ -27,28 +27,33 @@ PCA_data <- my_data_clean_aug %>%
 #joining data (population, sex)
 ```{r}
 one_hot_enc_data <- my_data_clean_aug %>% 
-  select(c("Population","Sex"))
+  select(c("Population",
+           "Sex"))
 ```
 
 ```{r}
 one_hot_enc_data_join <- PCA_data %>% 
-  mutate(one_hot_enc_data$Population ,one_hot_enc_data$Sex)
+  mutate(one_hot_enc_data$Population, 
+         one_hot_enc_data$Sex)
 ```
 
 #renaming columns
 ```{r}
 one_hot_enc_data_join <- one_hot_enc_data_join %>% 
-  rename( "Population" = "one_hot_enc_data$Population","Sex" = "one_hot_enc_data$Sex")
+  rename( "Population" = "one_hot_enc_data$Population", 
+          "Sex" = "one_hot_enc_data$Sex")
 
 ```
 
 #Creatin dummies (caret package)
 ```{r}
 #define one-hot encoding function
-dummy <- dummyVars(" ~ .", data=one_hot_enc_data_join)
+dummy <- dummyVars(" ~ .",
+                   data=one_hot_enc_data_join)
 
 #perform one-hot encoding on data frame
-final_data <- data.frame(predict(dummy, newdata=one_hot_enc_data_join))
+final_data <- data.frame(predict(dummy,
+                                 newdata=one_hot_enc_data_join))
 
 #view final data frame
 final_data
@@ -72,18 +77,21 @@ pca_fit %>%
 pca_fit %>%
   tidy(matrix = "eigenvalues") %>%
   ggplot(aes(PC, percent)) +
-  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  geom_col(fill = "#56B4E9",
+           alpha = 0.8) +
   scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(
-    labels = scales::percent_format(),
-    expand = expansion(mult = c(0, 0.01))
-  ) 
+  scale_y_continuous(labels = scales::percent_format(),
+    expand = expansion(mult = c(0,
+                                0.01))) 
 ```
 #Contribution of variable to PC
 ```{r}
 var<-get_pca_var(pca_fit)
-a<-fviz_contrib(pca_fit, "var", axes=1, xtickslab.rt=90) # default angle=45°
-plot(a,main = "Variables percentage contribution of first Principal Components")
+a<-fviz_contrib(pca_fit,
+                "var",
+                axes=1,
+                xtickslab.rt=90) # default angle=45°
+plot(a, main = "Variables percentage contribution of first Principal Components")
 ```
 
 
@@ -91,18 +99,25 @@ plot(a,main = "Variables percentage contribution of first Principal Components")
 ```{r}
 pl1 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = Population)) + 
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = Population)) + 
   geom_point(size = 1.5)
 
 pl2 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = Sex)) + 
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = Sex)) + 
   geom_point(size = 1.5)
   
 pl3 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = distance_class)) + 
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = distance_class)) + 
   geom_point(size = 1.5)
+
 show(pl1 / pl3 + pl2)
 ```
 
@@ -116,21 +131,28 @@ pca_fit %>%
 ```{r}
 # define arrow style for plotting
 arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
+  angle = 20, ends = "first",
+  type = "closed",
+  length = grid::unit(8, "pt")
 )
 
 # plot rotation matrix
 pca_fit %>%
   tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
-  ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
-  geom_text(
-    aes(label = column),
-    hjust = 1, nudge_x = -0.02, 
-    color = "#904C2F"
-  ) +
-  xlim(-1.25, .5) + ylim(-.5, 1) +
+  pivot_wider(names_from = "PC",
+              names_prefix = "PC",
+              values_from = "value") %>%
+  ggplot(aes(PC1,
+             PC2)) +
+  geom_segment(xend = 0,
+               yend = 0,
+               arrow = arrow_style) +
+  geom_text(aes(label = column),
+    hjust = 1,
+    nudge_x = -0.02, 
+    color = "#904C2F") +
+  xlim(-1.25, .5) +
+  ylim(-.5, 1) +
   coord_fixed()  # fix aspect ratio to 1:1
  
 
@@ -146,7 +168,9 @@ pca_fit %>%
 
 ```{r}
 kmean <- pca_fit$x %>%
-  kmeans(centers = 2, iter.max = 1000, nstart = 10) %>%
+  kmeans(centers = 2,
+         iter.max = 1000,
+         nstart = 10) %>%
   augment(final_data)
 
 
@@ -155,7 +179,9 @@ kmean <- pca_fit$x %>%
 ```{r}
 pl4 <- pca_fit %>%
   augment(kmean) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = .cluster)) + 
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = .cluster)) + 
   geom_point(size = 1.5)
 
 show(pl4)
