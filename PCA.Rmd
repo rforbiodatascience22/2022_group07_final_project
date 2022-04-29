@@ -16,12 +16,7 @@ data <- read_tsv(file = "data/03_my_data_clean_aug.tsv",show_col_types = FALSE)
 ```{r}
 PCA_data <- data %>% 
   select(where(is.numeric),
-        -(matches("energy|
-                  Log|
-                  eff|
-                  PC|
-                  time.sec|
-                  power")))
+        -(matches("energy|Log|eff|PC|time.sec|power")))
 
 as_tibble(PCA_data)
 ```
@@ -32,15 +27,19 @@ pca_fit <- PCA_data %>%
   prcomp(scale = TRUE)
 ```
 
-#PC1 VS PC2 Plot
+#PC1 VS PC2 Plot - Population
 ```{r}
-pca_fit %>%
+pl1 <- pca_fit %>%
   augment(data) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2)) + 
-  geom_point(size = 1.5) +
-  scale_color_manual(
-    values = c(malignant = "#D55E00", benign = "#0072B2")
-  )
+  ggplot(aes(.fittedPC1, .fittedPC2, color = Population)) + 
+  geom_point(size = 1.5)
+
+pl2 <- pca_fit %>%
+  augment(data) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = Sex)) + 
+  geom_point(size = 1.5)
+  
+show(pl1 / pl2)
 ```
 #Eigenvalues percentage
 ```{r}
@@ -90,3 +89,99 @@ pca_fit %>%
  
 ```
 
+
+
+##one hot encoding with "caret" package
+
+#joining data (population, sex)
+```{r}
+ohe_data <- data %>% 
+  select(c("Population","Sex"))
+```
+
+```{r}
+ohe_data_join <- PCA_data %>% 
+  mutate(ohe_data$Population ,ohe_data$Sex)
+```
+
+#renaming columns
+```{r}
+ohe_data_join <- ohe_data_join %>% 
+  rename( "Population" = "ohe_data$Population","Sex" = "ohe_data$Sex")
+
+```
+
+#Creatin dummies (caret package)
+```{r}
+#define one-hot encoding function
+dummy <- dummyVars(" ~ .", data=ohe_data_join)
+
+#perform one-hot encoding on data frame
+final_df <- data.frame(predict(dummy, newdata=ohe_data_join))
+
+#view final data frame
+final_df
+
+```
+
+#PCA with one hot encoding
+```{r}
+pca_fit_ohe <- final_df %>% 
+  prcomp(scale = TRUE)
+```
+
+#Eigenvalues
+```{r}
+pca_fit_ohe %>%
+  tidy(matrix = "eigenvalues")
+```
+
+#Eigenvalues percentage plot
+```{r}
+pca_fit_ohe %>%
+  tidy(matrix = "eigenvalues") %>%
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = expansion(mult = c(0, 0.01))
+  ) 
+```
+#Contribution of variable to PC
+```{r}
+var<-get_pca_var(pca_fit_ohe)
+a<-fviz_contrib(pca_fit_ohe, "var", axes=1, xtickslab.rt=90) # default angle=45°
+plot(a,main = "Variables percentage contribution of first Principal Components")
+```
+#PC1 VS PC2 Plot - Population
+```{r}
+pl1 <- pca_fit_ohe %>%
+  augment(data) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = Population)) + 
+  geom_point(size = 1.5)
+
+pl2 <- pca_fit_ohe %>%
+  augment(data) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = Sex)) + 
+  geom_point(size = 1.5)
+  
+show(pl1 / pl2)
+```
+
+
+
+
+
+
+##K N N
+
+
+##4. Clustering Principal Components
+```{r}
+#pca_fit_ohe<-prcomp(final_df, center=FALSE, scale.=FALSE, rank. = 4) # stats::
+results <- pca_fit_ohe$x
+fviz_nbclust(results, FUNcluster=kmeans, k.max = 16)  
+km1<-eclust(results, "kmeans", hc_metric="eucliden",k=2)
+fviz_silhouette(km1) 
+```
