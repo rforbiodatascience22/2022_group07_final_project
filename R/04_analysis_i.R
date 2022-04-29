@@ -12,21 +12,52 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 
 # Wrangle data ------------------------------------------------------------
 gene_expr_data <- my_data_clean_aug %>% 
-  select(matches("LogR|ID|Population")) %>% 
+  select(matches("LogR|Population")) %>% 
   drop_na() %>% 
-  pivot_longer(cols = -(c("ID","Population")),
+  mutate(Population = case_when(Population == "east" ~ 1,
+                                Population == "west" ~ 0)) %>% 
+  pivot_longer(cols = -"Population",
                names_to = "gene",
-               values_to = "expr_lvl")
+               values_to = "expr_lvl") %>% 
+  group_by(gene) %>%
+  nest %>% 
+  ungroup 
   
 
-# Model data
+# Model data -------------------------------------------------------------
 gene_expr_model <- gene_expr_data %>% 
-  mutate(mdl = map(data, ~glm("Population" ~ "expr_lvl",
-                              data = .,
-                              family = binomial(link = "logit"))))
+  mutate(mdl = map(data, ~glm(Population ~ expr_lvl,
+                                        data = .x,
+                                        family = binomial(link = "logit")))) %>% 
+  mutate(mdl_tidy = map(mdl, ~tidy(.x, conf.int = TRUE))) %>% 
+  unnest(mdl_tidy) %>% 
+  filter(str_detect(term, "expr_lvl"))
 
-# Visualise data ----------------------------------------------------------
-my_data_clean_aug %>% ...
+#Analysis -----------------------------------------------------------------
+gene_expr_analysis <- gene_expr_model %>% 
+  mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
+                                   TRUE ~ "Non-significant"),
+         gene_label = case_when(identified_as == "Significant" ~ gene,
+                                identified_as == "Non-significant" ~ "")) %>% 
+  mutate(neg_log10_p = -log10(p.value))
+
+#Visualize ---------------------------------------------------------------
+gene_expr_analysis %>% 
+  ggplot(aes(x = gene,
+             y = neg_log10_p,
+             colour = identified_as,
+             label = gene_label)) + 
+  geom_point(alpha = 0.5,
+             size = 2) +
+  geom_hline(yintercept = -log10(0.05),
+             linetype = "dashed") +
+  #geom_text_repel(size = 3) +
+  theme_classic(base_family = "Avenir",
+                base_size = 8) +
+  theme(axis.text.x = element_blank(),
+        legend.position = "bottom") +
+  labs(x = "Gene",
+       y = "Minus log10(p)")
 
 
 # Write data --------------------------------------------------------------

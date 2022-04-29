@@ -2,11 +2,14 @@
 if (!"ggthemes" %in% installed.packages()) install.packages("ggthemes")
 if (!"tidyverse" %in% installed.packages()) install.packages("tidyverse")
 if (!"mltools" %in% installed.packages()) install.packages("mltools")
+if (!"broom" %in% installed.packages()) install.packages("broom")
+
 
 # Load libraries ----------------------------------------------------------
 library("ggthemes")
 library("tidyverse")
 library("mltools")
+library("broom")
 
 # Run all scripts ---------------------------------------------------------
 source(file = "R/01_load.R")
