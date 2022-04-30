@@ -144,7 +144,11 @@ pca_fit %>%
 ##K N N
 
 
-##4. Clustering Principal Components
+#Finding optiml number of clusters
+```{r}
+pca_fit$x %>% 
+  fviz_nbclust(FUNcluster=kmeans, k.max = 8)
+```
 
 
 ```{r}

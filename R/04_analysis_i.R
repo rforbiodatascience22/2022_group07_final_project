@@ -129,6 +129,10 @@ pca_fit %>%
   ylim(-.5, 1) +
   coord_fixed()  # fix aspect ratio to 1:1
 
+#Finding optiml number of clusters
+pca_fit$x %>% 
+  fviz_nbclust(FUNcluster=kmeans, k.max = 8)
+
 #KNN - clusters plot
 pl5 <- pca_fit %>%
   augment(kmean) %>% # add original dataset back in
