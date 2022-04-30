@@ -1,51 +1,40 @@
 # Load libraries ----------------------------------------------------------
+library("readr")
+library("tibble")
 library("tidyverse")
 library("caret")
+library("broom")
+library("factoextra")
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv",show_col_types = FALSE)
+my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv", 
+                              show_col_types = FALSE)
 
 
 # Wrangle data ------------------------------------------------------------
 
 #Removing all but numeric variables (keeping only necessary variables)
 PCA_data <- my_data_clean_aug %>% 
-  select(where(is.numeric),
-         -(matches("energy|Log|eff|time.sec|power"))) %>% 
+  select(-(matches("energy|Log|eff|time.sec|power|maxvelocity|ID|distance_class"))) %>% 
   as_tibble()
-
-#Preparing data for one hot encoding
-one_hot_enc_data <- my_data_clean_aug %>% 
-  select(c("Population",
-           "Sex"))
-
-one_hot_enc_data_join <- PCA_data %>% 
-  mutate(one_hot_enc_data$Population,
-         one_hot_enc_data$Sex)
-
-one_hot_enc_data_join <- one_hot_enc_data_join %>% 
-  rename( "Population" = "one_hot_enc_data$Population",
-          "Sex" = "one_hot_enc_data$Sex")
 
 #define one-hot encoding function
 dummy <- dummyVars(" ~ .",
-                   data=one_hot_enc_data_join)
+                   data = PCA_data)
 
 #perform one-hot encoding on data frame
 final_data <- data.frame(predict(dummy,
-                                 newdata=one_hot_enc_data_join))
+                                 newdata = PCA_data))
 
-#view final data frame
-final_data
 
 # Model data---------------------------------------------------------------------
 
 #Perform PCA
-pca_fit <- final_df %>%
+pca_fit <- final_data %>%
   prcomp(scale = TRUE)
 
 #PCs stats (std/percent/cummulative)
@@ -58,9 +47,11 @@ pca_fit %>%
 
 #KNN
 kmean <- pca_fit$x %>%
-  kmeans(centers = 2, iter.max = 1000,
+  kmeans(centers = 2,
+         iter.max = 1000,
          nstart = 10) %>%
   augment(final_data)
+
 
 # Visualise data ----------------------------------------------------------
 
@@ -78,11 +69,14 @@ pl1 <- pca_fit %>%
                                 0.01))) 
 
 #Contribution of each variable to PC(needs change to ggplot instead of plot)
-var<-get_pca_var(pca_fit)
-a<-fviz_contrib(pca_fit, "var",
-                axes=1,
-                xtickslab.rt=90) # default angle=45°
-plot(a,main = "Variables percentage contribution of first Principal Components") 
+var <- get_pca_var(pca_fit)
+pl5 <- fviz_contrib(pca_fit,
+                "var",
+                axes = 1,
+                xtickslab.rt = 90)+ 
+  theme_minimal()+ 
+  ggtitle("Variables percentage contribution of first Principal Components")
+
 
 #PC1 VS PC2 Plot - Population/Sex/distance_class
 pl2 <- pca_fit %>%
@@ -106,7 +100,6 @@ pl4 <- pca_fit %>%
              color = distance_class)) + 
   geom_point(size = 1.5)
 
-show(pl2 / pl3 + pl4)
 
 #Plot rotation matrix(arrows)
 
@@ -128,8 +121,7 @@ pca_fit %>%
   geom_segment(xend = 0,
                yend = 0,
                arrow = arrow_style) +
-  geom_text(
-    aes(label = column),
+  geom_text(aes(label = column),
     hjust = 1,
     nudge_x = -0.02, 
     color = "#904C2F") +

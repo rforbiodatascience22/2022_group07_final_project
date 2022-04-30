@@ -9,14 +9,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 #Data loading
 ```{r}
-my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv",show_col_types = FALSE)
+my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv", 
+                              show_col_types = FALSE)
 ```
 
 #Data preprocessing for PCA
 ```{r}
 PCA_data <- my_data_clean_aug %>% 
-  select(where(is.numeric),
-        -(matches("energy|Log|eff|time.sec|power"))) %>% 
+  select(-(matches("energy|Log|eff|time.sec|power|maxvelocity|ID|distance_class"))) %>% 
   as_tibble()
 ```
 
@@ -24,36 +24,16 @@ PCA_data <- my_data_clean_aug %>%
 
 ##one hot encoding with "caret" package
 
-#joining data (population, sex)
-```{r}
-one_hot_enc_data <- my_data_clean_aug %>% 
-  select(c("Population",
-           "Sex"))
-```
-
-```{r}
-one_hot_enc_data_join <- PCA_data %>% 
-  mutate(one_hot_enc_data$Population, 
-         one_hot_enc_data$Sex)
-```
-
-#renaming columns
-```{r}
-one_hot_enc_data_join <- one_hot_enc_data_join %>% 
-  rename( "Population" = "one_hot_enc_data$Population", 
-          "Sex" = "one_hot_enc_data$Sex")
-
-```
 
 #Creatin dummies (caret package)
 ```{r}
 #define one-hot encoding function
 dummy <- dummyVars(" ~ .",
-                   data=one_hot_enc_data_join)
+                   data = PCA_data)
 
 #perform one-hot encoding on data frame
 final_data <- data.frame(predict(dummy,
-                                 newdata=one_hot_enc_data_join))
+                                 newdata = PCA_data))
 
 #view final data frame
 final_data
@@ -86,12 +66,13 @@ pca_fit %>%
 ```
 #Contribution of variable to PC
 ```{r}
-var<-get_pca_var(pca_fit)
-a<-fviz_contrib(pca_fit,
+var <- get_pca_var(pca_fit)
+pl5 <- fviz_contrib(pca_fit,
                 "var",
-                axes=1,
-                xtickslab.rt=90) # default angle=45°
-plot(a, main = "Variables percentage contribution of first Principal Components")
+                axes = 1,
+                xtickslab.rt = 90)+ 
+  theme_minimal()+ 
+  ggtitle("Variables percentage contribution of first Principal Components")
 ```
 
 
@@ -131,10 +112,10 @@ pca_fit %>%
 ```{r}
 # define arrow style for plotting
 arrow_style <- arrow(
-  angle = 20, ends = "first",
+  angle = 20,
+  ends = "first",
   type = "closed",
-  length = grid::unit(8, "pt")
-)
+  length = grid::unit(8, "pt"))
 
 # plot rotation matrix
 pca_fit %>%
@@ -187,4 +168,9 @@ pl4 <- pca_fit %>%
 show(pl4)
 ```
 
+```{r}
+pca_fit %>% as_tibble()
+
+pca_fit %>% filter(x)
+```
 
