@@ -14,8 +14,8 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 gene_expr_data <- my_data_clean_aug %>% 
   select(matches("LogR|Population")) %>% 
   drop_na() %>% 
-  mutate(Population = case_when(Population == "east" ~ 1,
-                                Population == "west" ~ 0)) %>% 
+  mutate(Population = case_when(Population == "east" ~ 0,
+                                Population == "west" ~ 1)) %>% 
   pivot_longer(cols = -"Population",
                names_to = "gene",
                values_to = "expr_lvl") %>% 
@@ -42,7 +42,7 @@ gene_expr_analysis <- gene_expr_model %>%
   mutate(neg_log10_p = -log10(p.value))
 
 #Visualize ---------------------------------------------------------------
-gene_expr_analysis %>% 
+gene_expr_result <- gene_expr_analysis %>% 
   ggplot(aes(x = gene,
              y = neg_log10_p,
              colour = identified_as,
@@ -51,15 +51,16 @@ gene_expr_analysis %>%
              size = 2) +
   geom_hline(yintercept = -log10(0.05),
              linetype = "dashed") +
-  #geom_text_repel(size = 3) +
-  theme_classic(base_family = "Avenir",
-                base_size = 8) +
+  theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "Minus log10(p)")
+       y = "Minus log10(p)") +
+  geom_blank()
+
+save_plot(gene_expr_result)
 
 
 # Write data --------------------------------------------------------------
-write_tsv(...)
-ggsave(...)
+write_tsv(x = gene_expr_analysis,
+          file = "data/04_gene_expr_analysis.tsv")
