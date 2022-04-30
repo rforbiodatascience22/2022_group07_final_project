@@ -30,7 +30,7 @@ dummy <- dummyVars(" ~ .",
 final_data <- data.frame(predict(dummy,
                                  newdata = PCA_data))
 
-
+rm(PCA_data)
 # Model data---------------------------------------------------------------------
 
 #Perform PCA
@@ -69,7 +69,7 @@ pl1 <- pca_fit %>%
                                 0.01))) 
 
 #Contribution of each variable to PC(needs change to ggplot instead of plot)
-var <- get_pca_var(pca_fit)
+var_contr <- get_pca_var(pca_fit)
 pl5 <- fviz_contrib(pca_fit,
                 "var",
                 axes = 1,
