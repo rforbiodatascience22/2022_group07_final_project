@@ -129,7 +129,7 @@ pca_fit %>%
   ylim(-.5, 1) +
   coord_fixed()  # fix aspect ratio to 1:1
 
-#Finding optiml number of clusters
+#Finding optimal number of clusters
 pca_fit$x %>% 
   fviz_nbclust(FUNcluster=kmeans, k.max = 8)
 
