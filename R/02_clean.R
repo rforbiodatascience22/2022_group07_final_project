@@ -30,7 +30,7 @@ numeric_ones <- my_data_clean %>%
 plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
 
 #generate images of the plots
-map(plots, ~save_plot(.x)) 
+map(names(plots), ~save_plot_list(.x)) 
 
 
 # Write data --------------------------------------------------------------

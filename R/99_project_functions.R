@@ -71,12 +71,12 @@ datadistribution_plot <- function(x, y, df){
 }
 
 #function to save plots in images to 
-save_plot <- function(x) {
-  x %>% 
-    ggsave(
-    plot = x,
-    path = "results/plots",
-    filename = x,
-    device = "png")
+image_path = "results/plots"
+  
+save_plot_list <- function(.x) {
+  ggsave(
+    path = image_path,
+    filename = paste0(.x, ".png"),
+    plot = plots[[.x]]
+  )
 }
-

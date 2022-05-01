@@ -42,7 +42,7 @@ gene_expr_analysis <- gene_expr_model %>%
   mutate(neg_log10_p = -log10(p.value))
 
 #Visualize ---------------------------------------------------------------
-gene_expr_result <- gene_expr_analysis %>% 
+gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = gene,
              y = neg_log10_p,
              colour = identified_as,
@@ -55,10 +55,9 @@ gene_expr_result <- gene_expr_analysis %>%
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "Minus log10(p)") +
-  geom_blank()
+       y = "Minus log10(p)") 
 
-save_plot(gene_expr_result)
+ggsave("gene_expr.png", path = image_path, device = "png")
 
 
 # Write data --------------------------------------------------------------
