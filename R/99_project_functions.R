@@ -70,7 +70,20 @@ datadistribution_plot <- function(x, y, df){
     theme_project()
 }
 
-#function to save plots in images to 
+#function to save plots in images to plots folder in results
+
+folder <- "results/plots"
+
+if (file.exists(folder)) {
+  
+  cat("The folder already exists")
+  
+} else {
+  
+  dir.create(folder)
+  
+}
+
 image_path = "results/plots"
   
 save_plot_list <- function(.x) {
