@@ -13,7 +13,7 @@ my_data <- as_tibble(read_tsv(file = "data/01_my_data.tsv"))
 
 # Eliminate unnecessary variables --------------------------------------------------------
 my_data_clean <- my_data  %>% 
-  select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
+    select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
 
 # Check for NAs --------------------------------------------------------
 NAs <- na_count(my_data_clean)
@@ -27,10 +27,14 @@ numeric_ones <- my_data_clean %>%
   set_names() #this function belogs to purr package and uses the values of vector as names
 
 #generate plot iterated for all variables
-plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
+plots = map(numeric_ones, 
+            ~datadistribution_plot("Population",
+                                   ., 
+                                   my_data_clean))
 
 #generate images of the plots
 #map(plots, ~save_plot(.x)) 
+
 
 
 # Write data --------------------------------------------------------------
