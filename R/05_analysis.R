@@ -3,8 +3,10 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
-gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv")
+my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv",
+                              show_col_types = FALSE)
+gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv",
+                           show_col_types = FALSE)
 
 # Gene Expression analysis -------------------------------------------------
 
@@ -61,7 +63,7 @@ ggsave("05_gene_expression.png",
        path = image_path,
        device = "png")
 
-----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 
 # PCA ----------------------------------------------------------------------
 
