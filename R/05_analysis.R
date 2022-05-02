@@ -9,7 +9,7 @@ gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv")
 # Gene Expression analysis -------------------------------------------------
 
 # Wrangle data ------------------------------------------------------------
-
+#creating tibble for gene expression analysis
 gene_expr <- gene_expr_data %>%
   select(-matches("ID|Sex")) %>% 
   mutate(Population = case_when(Population == "east" ~ 0,
@@ -19,6 +19,7 @@ gene_expr <- gene_expr_data %>%
   ungroup 
 
 # Model data -------------------------------------------------------------
+#logistic regression model for correlation of gene expression and population
 gene_expr_model <- gene_expr %>% 
   mutate(mdl = map(data,
                    ~glm(Population ~ expr_lvl, 
@@ -31,6 +32,7 @@ gene_expr_model <- gene_expr %>%
   filter(str_detect(term, "expr_lvl"))
 
 # Analysis -----------------------------------------------------------------
+#creating labels based on significance of analysis
 gene_expr_analysis <- gene_expr_model %>% 
   mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
                                    TRUE ~ "Non-significant"), 
@@ -39,6 +41,7 @@ gene_expr_analysis <- gene_expr_model %>%
   mutate(neg_log10_p = -log10(p.value))
 
 # Visualize ---------------------------------------------------------------
+#plotting the significance values
 gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = gene,
              y = neg_log10_p,
@@ -57,6 +60,8 @@ gene_expr_result = gene_expr_analysis %>%
 ggsave("05_gene_expression.png",
        path = image_path,
        device = "png")
+
+----------------------------------------------------------------------------
 
 # PCA ----------------------------------------------------------------------
 
