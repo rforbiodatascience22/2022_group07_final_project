@@ -1,10 +1,3 @@
-# Load libraries ----------------------------------------------------------
-library("tidyverse")
-library("ggpubr")
-library("ggridges")
-library("reshape2")
-library("GGally")
-
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
