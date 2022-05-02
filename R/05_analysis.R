@@ -1,12 +1,3 @@
-# Load libraries ----------------------------------------------------------
-library("tidyverse")
-library("readr")
-library("tibble")
-library("caret")
-library("broom")
-library("factoextra")
-
-
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
@@ -15,9 +6,9 @@ source(file = "R/99_project_functions.R")
 my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv")
 
-#Gene Expression analysis -------------------------------------------------
+# Gene Expression analysis -------------------------------------------------
 
-# Wrangle
+# Wrangle data ------------------------------------------------------------
 
 gene_expr <- gene_expr_data %>%
   select(-matches("ID|Sex")) %>% 
@@ -26,40 +17,28 @@ gene_expr <- gene_expr_data %>%
   group_by(Genes) %>%
   nest %>% 
   ungroup 
-  
-
-# Wrangle data ------------------------------------------------------------
-gene_expr <- my_data_clean_aug %>% 
-  select(matches("Gene_|Population")) %>% 
-  drop_na() %>% 
-  mutate(Population = case_when(Population == "east" ~ 0,
-                                Population == "west" ~ 1)) %>% 
-  pivot_longer(cols = -"Population",
-               names_to = "gene",
-               values_to = "expr_lvl") %>% 
-  group_by(gene) %>%
-  nest %>% 
-  ungroup 
-
 
 # Model data -------------------------------------------------------------
 gene_expr_model <- gene_expr %>% 
-  mutate(mdl = map(data, ~glm(Population ~ expr_lvl,
-                                        data = .x,
-                                        family = binomial(link = "logit")))) %>% 
-  mutate(mdl_tidy = map(mdl, ~tidy(.x, conf.int = TRUE))) %>% 
+  mutate(mdl = map(data,
+                   ~glm(Population ~ expr_lvl, 
+                        data = .x, 
+                        family = binomial(link = "logit")))) %>% 
+  mutate(mdl_tidy = map(mdl,
+                        ~tidy(.x,
+                              conf.int = TRUE))) %>% 
   unnest(mdl_tidy) %>% 
   filter(str_detect(term, "expr_lvl"))
 
-#Analysis -----------------------------------------------------------------
+# Analysis -----------------------------------------------------------------
 gene_expr_analysis <- gene_expr_model %>% 
   mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
-                                   TRUE ~ "Non-significant"),
+                                   TRUE ~ "Non-significant"), 
          gene_label = case_when(identified_as == "Significant" ~ gene,
                                 identified_as == "Non-significant" ~ "")) %>% 
   mutate(neg_log10_p = -log10(p.value))
 
-#Visualize ---------------------------------------------------------------
+# Visualize ---------------------------------------------------------------
 gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = gene,
              y = neg_log10_p,
@@ -75,30 +54,32 @@ gene_expr_result = gene_expr_analysis %>%
   labs(x = "Gene",
        y = "Minus log10(p)") 
 
-ggsave("05_gene_expression.png", path = image_path, device = "png")
+ggsave("05_gene_expression.png",
+       path = image_path,
+       device = "png")
 
-#PCA ----------------------------------------------------------------------
+# PCA ----------------------------------------------------------------------
 
-#Removing all but numeric variables (keeping only necessary variables)
+# Remove all but numeric variables and keep only necessary variables
 PCA_data <- my_data_clean_aug %>% 
   select(-(matches("energy|Gene|eff|time.sec|power|maxvelocity|ID|distance_class"))) %>% 
   as_tibble()
 
-#define one-hot encoding function
+# Define one-hot encoding function
 dummy <- dummyVars(" ~ .",
                    data = PCA_data)
 
-#perform one-hot encoding on data frame
+# Perform one-hot encoding on data frame
 final_data <- data.frame(predict(dummy,
                                  newdata = PCA_data))
 
 # Model data---------------------------------------------------------------------
 
-#Perform PCA
+# Perform PCA
 pca_fit <- final_data %>%
   prcomp(scale = TRUE)
 
-#KNN
+# Perform K-nearest Neighbors
 kmean <- pca_fit$x %>%
   kmeans(centers = 2,
          iter.max = 1000,
@@ -108,7 +89,7 @@ kmean <- pca_fit$x %>%
 
 # Visualize data ----------------------------------------------------------
 
-#Eigenvalues percentage plot
+# Eigenvalues percentage plot (data explained)
 pl1 <- pca_fit %>%
   tidy(matrix = "eigenvalues") %>%
   ggplot(aes(PC,
@@ -119,27 +100,34 @@ pl1 <- pca_fit %>%
   scale_y_continuous(labels = scales::percent_format(),
                      expand = expansion(mult = c(0,
                                                  0.01))) 
-ggsave("05_data_exlained_PCs.png", path = image_path, device = "png")
+ggsave("05_data_exlained_PCs.png",
+       path = image_path,
+       device = "png")
 
-#Contribution of each variable to PC(needs change to ggplot instead of plot)
+# Contribution of each variable to PC
 var_contr <- get_pca_var(pca_fit)
 pl5 <- fviz_contrib(pca_fit,
                     "var",
                     axes = 1,
-                    xtickslab.rt = 90)+ 
-  theme_minimal()+ 
+                    xtickslab.rt = 90) + 
+  theme_minimal() +
+  rotate_x()
   ggtitle("Variables percentage contribution of first Principal Components")
 
-ggsave("05_data_contribution_PCs.png", path = image_path, device = "png")
+ggsave("05_data_contribution_PCs.png",
+       path = image_path,
+       device = "png")
 
-#PC1 VS PC2 Plot - Population/Sex/distance_class
+# PC1 vs PC2 Plot - Population/Sex/distance_class
 pl2 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Population)) + 
   geom_point(size = 1.5)
-ggsave("05_PCA_population.png", path = image_path, device = "png")
+ggsave("05_PCA_population.png",
+       path = image_path,
+       device = "png")
 
 pl3 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
@@ -147,7 +135,9 @@ pl3 <- pca_fit %>%
              .fittedPC2,
              color = Sex)) + 
   geom_point(size = 1.5)
-ggsave("05_PCA_sex.png", path = image_path, device = "png")
+ggsave("05_PCA_sex.png",
+       path = image_path,
+       device = "png")
 
 pl4 <- pca_fit %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
@@ -156,19 +146,20 @@ pl4 <- pca_fit %>%
              color = distance_class)) + 
   geom_point(size = 1.5)
 
-ggsave("05_PCA_distanceclass.png", path = image_path, device = "png")
+ggsave("05_PCA_distanceclass.png",
+       path = image_path,
+       device = "png")
 
 
-#Plot rotation matrix(arrows)
+# Plot rotation matrix
 
-# define arrow style for plotting
+# Define arrow style for plotting
 arrow_style <- arrow(angle = 20, 
                      ends = "first",
                      type = "closed",
-                     length = grid::unit(8,
-                                         "pt"))
+                     length = grid::unit(8, "pt"))
 
-# plot rotation matrix
+# Plot rotation matrix
 rotation_matrix <- pca_fit %>%
   tidy(matrix = "rotation") %>%
   pivot_wider(names_from = "PC",
@@ -187,17 +178,20 @@ rotation_matrix <- pca_fit %>%
   ylim(-.5, 1) +
   coord_fixed()  # fix aspect ratio to 1:1
 
-ggsave("05_PCA_rotationmatrix.png", path = image_path, device = "png")
+ggsave("05_PCA_rotationmatrix.png",
+       path = image_path,
+       device = "png")
 
-#Finding optimal number of clusters
+# Find optimal number of clusters
 pca_fit %>% 
   tidy() %>% 
-  fviz_nbclust(
-               FUNcluster=kmeans, 
+  fviz_nbclust(FUNcluster = kmeans, 
                k.max = 8)
-ggsave("05_optimal_clusters.png", path = image_path, device = "png")
+ggsave("05_optimal_clusters.png",
+       path = image_path,
+       device = "png")
 
-#KNN - clusters plot
+# KNN - clusters plot
 pl5 <- pca_fit %>%
   augment(kmean) %>% # add original dataset back in
   ggplot(aes(.fittedPC1,
@@ -205,4 +199,6 @@ pl5 <- pca_fit %>%
              color = .cluster)) + 
   geom_point(size = 1.5)
 
-ggsave("05_PCA_KNN.png", path = image_path, device = "png")
+ggsave("05_PCA_KNN.png",
+       path = image_path,
+       device = "png")
