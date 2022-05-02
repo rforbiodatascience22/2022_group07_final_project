@@ -1,7 +1,3 @@
-# Load libraries ----------------------------------------------------------
-library("tidyverse")
-library("dplyr")
-library("ggpubr")
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
@@ -34,7 +30,7 @@ plots = map(numeric_ones,
 
 
 #generate images of the plots
-map(names(plots), ~save_plot_list(plots, .x)) 
+map(names(plots), ~save_plot_list("02_", plots, .x)) 
 
 
 

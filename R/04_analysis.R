@@ -17,7 +17,7 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 # Wrangle data ------------------------------------------------------------
 
 #Boxplot of the variable power for the different populations, divided by sex
-Power <- my_data_clean_aug %>% 
+power <- my_data_clean_aug %>% 
             ggplot(aes(x = Sex,
                        y = power,
                        fill = Sex))+
@@ -32,7 +32,7 @@ Power <- my_data_clean_aug %>%
 
 
 ##Boxplots for the different gene expressions
-Express <- my_data_clean_aug %>%            #subset to plot the expressions easier
+express <- my_data_clean_aug %>%            #subset to plot the expressions easier
               select(ID,
                      Sex,
                      Population,
@@ -50,7 +50,7 @@ Express <- my_data_clean_aug %>%            #subset to plot the expressions easi
 ##############
 ##should I do all in a %>% in order not to create the variable 'express'??
 
-Gene_expr <- Express %>%
+gene_expr <- express %>%
                ggplot(aes(x = Population,
                           y = Expression,
                           fill = Sex))+
@@ -66,7 +66,7 @@ Gene_expr <- Express %>%
 ##Histograms
 ##Comparison of the efficiency between sex of populations
 
-Effic<- ggplot(data = my_data_clean_aug) +
+effic<- ggplot(data = my_data_clean_aug) +
            geom_bar(aes(x = Population,
                         y = efficiency,
                         fill = Sex),
@@ -80,7 +80,7 @@ Effic<- ggplot(data = my_data_clean_aug) +
            scale_fill_project()
 
 ##Comparison of the distance flown by the butterflies splitted by sex and population
-Dist <- ggplot(data = my_data_clean_aug) +
+dist <- ggplot(data = my_data_clean_aug) +
           geom_bar(aes(x = Population,
                        y = distance,
                        fill = Sex),
@@ -94,7 +94,7 @@ Dist <- ggplot(data = my_data_clean_aug) +
            scale_fill_project()
 
 ##Comparison of the velocities of the butterflies splitted by sex and population
-Vel <- ggplot(data = my_data_clean_aug) +
+vel <- ggplot(data = my_data_clean_aug) +
           geom_bar(aes(x = Population,
                        y = averagevelocity,
                        fill = Sex),
@@ -108,7 +108,7 @@ Vel <- ggplot(data = my_data_clean_aug) +
           scale_fill_project()
 
 ##Comparison of the energy consumed by the butterflies   
-Energy <- ggplot(data = my_data_clean_aug) +
+energy <- ggplot(data = my_data_clean_aug) +
            geom_bar(aes(x = Population,
                         y = energy_consumed,
                         fill = Sex),
@@ -122,13 +122,13 @@ Energy <- ggplot(data = my_data_clean_aug) +
           scale_fill_project()
 
 #Plot all the variable together 
-Plots <- ggarrange(Effic,
-                   Dist,
-                   Vel,
-                   Energy,
+plots <- ggarrange(effic,
+                   dist,
+                   vel,
+                   energy,
                    ncol = 2,
                    nrow = 2)
-annotate_figure(Plots, 
+annotate_figure(plots, 
                 top = text_grob("Comparison between populations and sex", 
                                 color = "black", 
                                 face = "bold", 
@@ -171,7 +171,7 @@ mass <- my_data_clean_aug %>%
 ##Heatmap - Genes Expression and ID (divided by population)
 
 #Heatmap for east population
-Heat_east <- Express %>% 
+heat_east <- express %>% 
               filter(Population == "east") %>% 
                ggplot(aes(x = ID,
                           y = Genes,
@@ -185,7 +185,7 @@ Heat_east <- Express %>%
                 theme_project()
 
 #Heatmap for west population
-Heat_west <- Express %>% 
+heat_west <- express %>% 
                 filter(Population == "west") %>% 
                  ggplot(aes(x = ID,
                             y = Genes,
@@ -199,11 +199,11 @@ Heat_west <- Express %>%
                  theme_project()
 
 
-Heat_maps <- ggarrange(Heat_east,
-                       Heat_west,
+heat_maps <- ggarrange(heat_east,
+                       heat_west,
                        ncol = 1,
                        nrow = 2)
-annotate_figure(Plots, 
+annotate_figure(plots, 
                 top = text_grob("Heatmaps for genes expression", 
                                 color = "black", 
                                 face = "bold", 
@@ -211,7 +211,7 @@ annotate_figure(Plots,
 
 
 ##Density ridge for energy consumed
-Density_energy <- ggplot(my_data_clean_aug,
+density_energy <- ggplot(my_data_clean_aug,
                          aes(x = energy_consumed,
                              y = Population,
                              fill= Population)) +
@@ -224,7 +224,7 @@ Density_energy <- ggplot(my_data_clean_aug,
 
 
 ##Density ridge for efficiency
-Density_effic <- ggplot(my_data_clean_aug,
+density_effic <- ggplot(my_data_clean_aug,
                         aes(x = efficiency,
                             y = Population,
                             fill= Population)) +
@@ -238,20 +238,15 @@ Density_effic <- ggplot(my_data_clean_aug,
 
 ## plots to save
 
-Plots_analysis <- c("Power",
-                    "Gene_expr",
-                    "Heat_maps",
-                    "Density_energy",
-                    "Density_effic")
+plots_analysis <- c(power,
+                    gene_expr,
+                    heat_maps,
+                    density_energy,
+                    density_effic)
 
-# Model data
-my_data_clean_aug %>% ...
-
-
-# Visualise data ----------------------------------------------------------
-my_data_clean_aug %>% ...
+#map(names(plots_analysis), ~save_plot_list("04_", plots_analysis, .x)) 
 
 
 # Write data --------------------------------------------------------------
-write_tsv(...)
-ggsave(...)
+write_tsv(x = express,
+          file = "data/04_gene_expr_data.tsv")

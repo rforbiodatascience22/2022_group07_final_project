@@ -10,8 +10,7 @@ na_count <- function(df){
 # Common theme to be used in all figures in the project
 
 theme_project <- function(){
-  theme_gdocs(base_size = 7) +
-    scale_fill_brewer()
+  theme_gdocs(base_size = 7)
 }
 
 scale_fill_project<- function () {
@@ -94,10 +93,10 @@ if (file.exists(folder)) {
 
 image_path = "results/plots"
   
-save_plot_list <- function(plot_list, .x) {
-  ggsave(
-    path = image_path,
-    filename = paste0(.x, ".png"),
-    plot = plot_list[[.x]]
-  )
+save_plot_list <- function(prefix, plot_list, .x) {
+  ggsave(path = image_path,
+         filename = paste0(prefix,
+                           .x,
+                           ".png"),
+         plot = plot_list[[.x]])
 }
