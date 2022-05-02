@@ -1,4 +1,6 @@
 library("ggthemes")
+library("RColorBrewer")
+
 # To check for and summarize NA values in a dataframe
 na_count <- function(df){
   df %>% 
@@ -6,8 +8,13 @@ na_count <- function(df){
 }
 
 # Common theme to be used in all figures in the project
+
 theme_project <- function(){
   theme_gdocs(base_size = 7)
+}
+
+scale_fill_project<- function () {
+  scale_fill_brewer(palette = "Set2")
 }
 
 # To rotate x-axis labels by 45 deg
@@ -67,7 +74,8 @@ datadistribution_plot <- function(x, y, df){
     geom_boxplot(aes(x = .data[[x]], 
                    y = .data[[y]]), 
                width=0.3)+
-    theme_project()
+    theme_project()+
+    scale_fill_project()
 }
 
 #function to save plots in images
