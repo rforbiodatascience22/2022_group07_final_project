@@ -24,7 +24,7 @@ NAs <- na_count(my_data_clean)
 numeric_ones <- my_data_clean %>%
   select(where(is.numeric)) %>%
   colnames() %>%
-  set_names() #this function belogs to purr package and uses the values of vector as names
+  set_names() #this function belongs to purr package and uses the values of vector as names
 
 #generate plot iterated for all variables
 plots = map(numeric_ones, 
@@ -32,8 +32,9 @@ plots = map(numeric_ones,
                                    ., 
                                    my_data_clean))
 
+
 #generate images of the plots
-#map(plots, ~save_plot(.x)) 
+map(names(plots), ~save_plot_list(plots, .x)) 
 
 
 

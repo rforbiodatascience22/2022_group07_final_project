@@ -10,7 +10,8 @@ na_count <- function(df){
 # Common theme to be used in all figures in the project
 
 theme_project <- function(){
-  theme_gdocs(base_size = 7)
+  theme_gdocs(base_size = 7) +
+    scale_fill_brewer()
 }
 
 scale_fill_project<- function () {
@@ -78,13 +79,25 @@ datadistribution_plot <- function(x, y, df){
     scale_fill_project()
 }
 
-#function to save plots in images
-# save_plot <- function (plt) {
-#   ggsave(
-#     path = "results/plots/",
-#     filename = paste0(plt),
-#     device = "png",
-#     plot = plt
-#   )
-# }
+#function to save plots in images to plots folder in results ------------------
+folder <- "results/plots"
 
+if (file.exists(folder)) {
+  
+  cat("The folder already exists")
+  
+} else {
+  
+  dir.create(folder)
+  
+}
+
+image_path = "results/plots"
+  
+save_plot_list <- function(plot_list, .x) {
+  ggsave(
+    path = image_path,
+    filename = paste0(.x, ".png"),
+    plot = plot_list[[.x]]
+  )
+}
