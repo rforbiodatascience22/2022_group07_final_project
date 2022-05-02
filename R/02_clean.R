@@ -27,10 +27,10 @@ numeric_ones <- my_data_clean %>%
   set_names() #this function belongs to purr package and uses the values of vector as names
 
 #generate plot iterated for all variables
-plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean) )
+plots = map(numeric_ones, ~datadistribution_plot("Population", ., my_data_clean))
 
 #generate images of the plots
-map(names(plots), ~save_plot_list(.x)) 
+map(names(plots), ~save_plot_list(plots, .x)) 
 
 
 # Write data --------------------------------------------------------------

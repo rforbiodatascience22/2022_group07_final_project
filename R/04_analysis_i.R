@@ -12,7 +12,7 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 
 # Wrangle data ------------------------------------------------------------
 gene_expr_data <- my_data_clean_aug %>% 
-  select(matches("LogR|Population")) %>% 
+  select(matches("Gene_|Population")) %>% 
   drop_na() %>% 
   mutate(Population = case_when(Population == "east" ~ 0,
                                 Population == "west" ~ 1)) %>% 
@@ -22,7 +22,6 @@ gene_expr_data <- my_data_clean_aug %>%
   group_by(gene) %>%
   nest %>% 
   ungroup 
-  
 
 # Model data -------------------------------------------------------------
 gene_expr_model <- gene_expr_data %>% 

@@ -7,7 +7,8 @@ na_count <- function(df){
 
 # Common theme to be used in all figures in the project
 theme_project <- function(){
-  theme_gdocs(base_size = 7)
+  theme_gdocs(base_size = 7) +
+    scale_fill_brewer()
 }
 
 # To rotate x-axis labels by 45 deg
@@ -70,8 +71,7 @@ datadistribution_plot <- function(x, y, df){
     theme_project()
 }
 
-#function to save plots in images to plots folder in results
-
+#function to save plots in images to plots folder in results ------------------
 folder <- "results/plots"
 
 if (file.exists(folder)) {
@@ -86,10 +86,10 @@ if (file.exists(folder)) {
 
 image_path = "results/plots"
   
-save_plot_list <- function(.x) {
+save_plot_list <- function(plot_list, .x) {
   ggsave(
     path = image_path,
     filename = paste0(.x, ".png"),
-    plot = plots[[.x]]
+    plot = plot_list[[.x]]
   )
 }
