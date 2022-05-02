@@ -70,13 +70,16 @@ PCA_data <- my_data_clean_aug %>%
   select(-(matches("energy|Gene|eff|time.sec|power|maxvelocity|ID|distance_class"))) %>% 
   as_tibble()
 
-# Define one-hot encoding function
-dummy <- dummyVars(" ~ .",
-                   data = PCA_data)
-
-# Perform one-hot encoding on data frame
-final_data <- data.frame(predict(dummy,
-                                 newdata = PCA_data))
+# One hot encoding
+final_data <- PCA_data %>%
+  mutate(value = 1)  %>%
+  spread(Sex,
+         value,
+         fill = 0 ) %>%
+  mutate(value = 1) %>%
+  spread(Population,
+         value,
+         fill = 0 )
 
 # Model data---------------------------------------------------------------------
 
