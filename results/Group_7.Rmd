@@ -1,0 +1,45 @@
+---
+title: "Title of the presentation"
+author: "Group_7"
+date: '2022-05-09'
+output: 
+  ioslides_presentation:
+    widescreen: true
+    incremental: false
+    logo: DTU_logo.png
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+Something about our data and the paper
+
+- 
+- Bullet 2
+- Bullet 3
+
+---
+Some more on introduction
+
+## Materials and methods
+
+- Dplyr?
+- Tidyverse? 0.0
+- Giiiiiithubbbbb
+
+## Results
+```{r pressure}
+plot(pressure)
+```
+
+
+## Discussion
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+

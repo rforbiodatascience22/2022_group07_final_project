@@ -1,6 +1,6 @@
 ---
 title: "Group_7"
-author: "culetti indaffarati"
+author: "culetti troppo indaffarati"
 date: '2022-05-02'
 output: 
   ioslides_presentation:
