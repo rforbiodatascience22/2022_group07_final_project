@@ -22,28 +22,28 @@ gene_expr <- gene_expr_data %>%
 #logistic regression model for correlation of gene expression and population
 gene_expr_model <- gene_expr %>% 
   mutate(mdl = map(data,
-                   ~glm(Population ~ expr_lvl, 
+                   ~glm(Population ~ Expression, 
                         data = .x, 
                         family = binomial(link = "logit")))) %>% 
   mutate(mdl_tidy = map(mdl,
                         ~tidy(.x,
                               conf.int = TRUE))) %>% 
   unnest(mdl_tidy) %>% 
-  filter(str_detect(term, "expr_lvl"))
+  filter(str_detect(term, "Expression"))
 
 # Analysis -----------------------------------------------------------------
 #creating labels based on significance of analysis
 gene_expr_analysis <- gene_expr_model %>% 
   mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
                                    TRUE ~ "Non-significant"), 
-         gene_label = case_when(identified_as == "Significant" ~ gene,
+         gene_label = case_when(identified_as == "Significant" ~ Genes,
                                 identified_as == "Non-significant" ~ "")) %>% 
   mutate(neg_log10_p = -log10(p.value))
 
 # Visualize ---------------------------------------------------------------
 #plotting the significance values
 gene_expr_result = gene_expr_analysis %>% 
-  ggplot(aes(x = gene,
+  ggplot(aes(x = Genes,
              y = neg_log10_p,
              colour = identified_as,
              label = gene_label)) + 

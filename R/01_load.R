@@ -4,10 +4,8 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-morphology_raw <- as_tibble(read.csv(file = "data/_raw/Talla_East_West_North
-                                     _America_Monarch_Genomics_Flight_And_Wing_Morphology_Data.csv"))
-expression_raw <- as_tibble(read.csv(file = "data/_raw/Talla_East_West_North
-                                     _America_Monarch_Genomics_Gene_Expression_Data.csv"))
+morphology_raw <- as_tibble(read.csv(file = "data/_raw/Talla_East_West_North_America_Monarch_Genomics_Flight_And_Wing_Morphology_Data.csv"))
+expression_raw <- as_tibble(read.csv(file = "data/_raw/Talla_East_West_North_America_Monarch_Genomics_Gene_Expression_Data.csv"))
 
 
 # Wrangle data ------------------------------------------------------------
