@@ -1,0 +1,49 @@
+---
+title: "Group_7"
+author: "culetti indaffarati"
+date: '2022-05-02'
+output: 
+  ioslides_presentation:
+    widescreen: true
+    incremental: false
+    logo: DTU_logo.png
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets {.smaller .build}
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output {#Asstag .emphasized}
+
+```{r cars, echo = TRUE}
+summary(cars)
+### <b>
+summary(pressure)
+### </b>
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
+## Asstag | sottotitolo {#Asstag .emphasized}
+
+- Buuuuu
+
+Muuuu
+
