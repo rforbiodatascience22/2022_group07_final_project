@@ -23,6 +23,7 @@ gene_expr_data <- my_data_clean_aug %>%
   nest %>% 
   ungroup 
 
+
 # Model data -------------------------------------------------------------
 gene_expr_model <- gene_expr_data %>% 
   mutate(mdl = map(data, ~glm(Population ~ expr_lvl,
