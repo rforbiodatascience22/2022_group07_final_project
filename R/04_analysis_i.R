@@ -103,14 +103,89 @@ FLIGHT_PERFORMANCE <- ((flight_distance/flight_duration +
 
 
 
+
+# Write data --------------------------------------------------------------
+
+ggsave("flight_performance.png",
+       plot = FLIGHT_PERFORMANCE,
+       device = "png",
+       path = "results/",
+       height = 12,
+       width = 16,
+       units = "cm"
+       )
+
 # Figure 8 from the paper ----------------------------------------------------------
 my_data_clean_aug %>% ...
 
+# Write data --------------------------------------------------------------
+
+
+
+#Heatmap of gene expression between the two populations
+
+subset_east <- my_data_clean_aug %>% 
+  select(starts_with('Log'),ID,Population) %>% 
+  drop_na() %>% 
+  pivot_longer(cols = contains("Log"),
+               names_to = "gene_names",
+               values_to = "Log_expression") %>% 
+  filter(Population == "east")
+
+
+heat_map_east <-  ggplot (data = subset_east,
+                          mapping = aes(x = gene_names,
+                                        y = ID,
+                                        fill = Log_expression)) +
+  geom_tile() +
+  facet_wrap( vars(Population), strip.position = "right" ) +
+  scale_fill_viridis_c(option = "D", direction = -1) + 
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text = element_text(size =6, hjust=1),
+        legend.position= "none",
+        strip.placement = "",
+        axis.title = element_text(size = 8)) +
+  labs(y = "Butterfly ID ",x= " ")
+
+subset_west<- my_data_clean_aug %>% 
+  select(starts_with('Log'),ID,Population) %>% 
+  drop_na() %>% 
+  pivot_longer(cols = contains("Log"),
+               names_to = "gene_names",
+               values_to = "Log_expression") %>% 
+  filter(Population == "west")
+
+heat_map_west <-  ggplot (data = subset_west,
+                          mapping = aes(x = gene_names,
+                                        y = ID,
+                                        fill = Log_expression)) +
+  geom_tile() +
+  facet_wrap(vars(Population), 
+              strip.position = "right" ) +
+  scale_fill_viridis_c(option = "D", 
+                       direction = -1) + 
+  theme(axis.text.x = element_text(angle= 45),
+        axis.text = element_text(size = 6, 
+                                 hjust=1),
+        legend.position= "bottom",
+        strip.placement = "",
+        axis.title = element_text(size = 8)) +
+  labs(y = "Butterfly ID ",
+       x = " ")
+
+gene_expression <- (heat_map_east / heat_map_west) + 
+  plot_annotation(title = "Gene expression between the two populations",
+                  theme = theme(plot.title = element_text(hjust = 0.5, 
+                                                          size = 16)))
 
 # Write data --------------------------------------------------------------
-# 
-# ggsave("flight_performance.png",
-#        plot = FLIGHT_PERFORMANCE,
-#        device = "png",
-#        path = "project/results"
-#        )
+
+ggsave("gene_expression.png",
+       plot = gene_expression,
+       device = "png",
+       path = "results/",
+       height = 12,
+       width = 16,
+       units = "cm",
+)
