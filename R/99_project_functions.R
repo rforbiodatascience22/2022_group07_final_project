@@ -104,9 +104,7 @@ if (file.exists(folder)) {
 image_path = "results/plots"
   
 save_plot_list <- function(prefix, plot_list, .x) {
-  ggsave(path = image_path,
-         filename = paste0(prefix,
-                           .x,
-                           ".png"),
+  ggsave(filename = paste0(prefix, .x, ".png"),
+         path = image_path,
          plot = plot_list[[.x]])
 }

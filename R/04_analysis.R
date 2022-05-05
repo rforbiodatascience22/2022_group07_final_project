@@ -23,7 +23,9 @@ power <- my_data_clean_aug %>%
   theme_project() +
   scale_fill_project()
      
-
+#ggsave("04_power_boxplot.png",
+ #      path = image_path,
+  #     device = "png")
 
 #Create a new variable 'express' which consider ID, Sex and Population just for 
 #the butterflies from which we have the gene expressions.
@@ -244,7 +246,7 @@ plots_analysis <- c(power,
                     density_energy,
                     density_effic)
 
-#map(names(plots_analysis), ~save_plot_list("04_", plots_analysis, .x)) 
+map(names(plots_analysis), ~save_plot_list("04_", plots_analysis, .x)) 
 
 
 # Write data --------------------------------------------------------------
