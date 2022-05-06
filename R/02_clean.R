@@ -19,7 +19,7 @@ NAs <- na_count(my_data_clean)
 
 # Generate a list with the names of the columns that contain numeric values
 numeric_ones <- my_data_clean %>%
-  select(where(is.numeric)) %>%
+  select(where(is.numeric),-starts_with('Gene')) %>%
   colnames() %>%
   set_names() #this function belongs to purr package and uses the values of vector as names
 
