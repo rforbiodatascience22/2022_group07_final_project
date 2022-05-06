@@ -1,20 +1,14 @@
 ---
-<<<<<<< HEAD
-title: "Title of the presentation"
+title: 'Final presentation'
 author: 
   Anna M. Federica R.</br>
   Siddhi J. Dimitrios L.</br> 
 date: 'May 9, 2022'
-=======
-title: 'Final presentation'
-author: 'Group_7'
-date: '2022-05-09'
->>>>>>> 82dc99d4d154c55b7bfa810036544ecea2a7051a
 output: 
   ioslides_presentation:
     widescreen: true
     incremental: false
-    logo: DTU_logo.png
+    logo: ../doc/DTU_logo.png
     css: styles.css
 ---
 
@@ -25,10 +19,6 @@ library("tidyverse")
 
 ## Genomic evidence and flight performance for different monarchs population {.columns-2}
 
-<<<<<<< HEAD
-Something about our data and the paper
-
-
 ```{r include=FALSE, echo=FALSE}
 #![picture of spaghetti](images/spaghetti.jpg){width=50%} 
 test_data <- as_tibble(read_tsv(file = "../data/03_my_data_clean_aug.tsv"))
@@ -37,18 +27,10 @@ test_data <- as_tibble(read_tsv(file = "../data/03_my_data_clean_aug.tsv"))
 test_data %>% 
   head(5)
 ```
-
-
-text code
-- 
-- Bullet 2
-- Bullet 3
-=======
 - Analysis of two monarch populations
 - differencies in flight performance
 - correlation in the genetic profile
 </div>
->>>>>>> 82dc99d4d154c55b7bfa810036544ecea2a7051a
 
 ![picture of butterflies](introduction.png){heigth=10%}
 </div>
@@ -62,8 +44,8 @@ Some more on introduction
 - Giiiiiithubbbbb
 
 ## Results
-```{r pressure}
-plot(pressure)
+```{r pl4}
+plot()
 ```
 
 

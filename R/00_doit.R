@@ -14,6 +14,7 @@ if (!"tibble" %in% installed.packages()) install.packages("tibble")
 if (!"caret" %in% installed.packages()) install.packages("caret")
 if (!"broom" %in% installed.packages()) install.packages("broom")
 if (!"factoextra" %in% installed.packages()) install.packages("factoextra")
+if (!"knitr" %in% installed.packages()) install.packages("knitr")
 
 
 # Load libraries ----------------------------------------------------------
@@ -32,6 +33,7 @@ library("tibble")
 library("caret")
 library("broom")
 library("factoextra")
+library("knitr")
 
 # Run all scripts ---------------------------------------------------------
 source(file = "R/01_load.R")
@@ -39,3 +41,10 @@ source(file = "R/02_clean.R")
 source(file = "R/03_augment.R")
 source(file = "R/04_analysis.R")
 source(file = "R/05_analysis.R")
+
+
+# Knit ioslides ---------------------------------------------------------
+rmarkdown::render(
+  "R/Group_7.Rmd",
+  output_file = "../results/Group_7.html"
+  )
