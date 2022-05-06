@@ -1,9 +1,15 @@
 ---
+<<<<<<< HEAD
 title: "Title of the presentation"
 author: 
   Anna M. Federica R.</br>
   Siddhi J. Dimitrios L.</br> 
 date: 'May 9, 2022'
+=======
+title: 'Final presentation'
+author: 'Group_7'
+date: '2022-05-09'
+>>>>>>> 82dc99d4d154c55b7bfa810036544ecea2a7051a
 output: 
   ioslides_presentation:
     widescreen: true
@@ -17,8 +23,9 @@ knitr::opts_chunk$set(echo = FALSE)
 library("tidyverse")
 ```
 
-## Introduction
+## Genomic evidence and flight performance for different monarchs population {.columns-2}
 
+<<<<<<< HEAD
 Something about our data and the paper
 
 
@@ -36,7 +43,15 @@ text code
 - 
 - Bullet 2
 - Bullet 3
+=======
+- Analysis of two monarch populations
+- differencies in flight performance
+- correlation in the genetic profile
+</div>
+>>>>>>> 82dc99d4d154c55b7bfa810036544ecea2a7051a
 
+![picture of butterflies](introduction.png){heigth=10%}
+</div>
 ---
 Some more on introduction
 
