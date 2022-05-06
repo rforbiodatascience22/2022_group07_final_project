@@ -23,9 +23,9 @@ power <- my_data_clean_aug %>%
   theme_project() +
   scale_fill_project()
      
-#ggsave("04_power_boxplot.png",
- #      path = image_path,
-  #     device = "png")
+ggsave("04_power_boxplot.png",
+       path = image_path,
+       device = "png")
 
 #Create a new variable 'express' which consider ID, Sex and Population just for 
 #the butterflies from which we have the gene expressions.
@@ -61,6 +61,9 @@ gene_expr <- express %>%
   theme_project() +
   scale_fill_project()
 
+ggsave("04_gene_expression.png",
+       path = image_path,
+       device = "png")
 
 ##Histogram plots:
 #Comparison of the efficiency between butterflies of the two population and 
@@ -204,13 +207,16 @@ heat_west <- express %>%
 heat_maps <- ggarrange(heat_east,
                        heat_west,
                        ncol = 1,
-                       nrow = 2)
-annotate_figure(plots, 
-                top = text_grob("Heatmaps for genes expression", 
-                                color = "black", 
-                                face = "bold", 
-                                size = 14))
+                       nrow = 2) %>% 
+  annotate_figure(plots, 
+                  top = text_grob("Heatmaps for genes expression",
+                                  color = "black",
+                                  face = "bold",
+                                  size = 14))
 
+ggsave("04_heat_maps.png",
+       path = image_path,
+       device = "png")
 
 ##Density ridge for energy consumed by the butterflies of the two population
 density_energy <- ggplot(my_data_clean_aug,
@@ -224,6 +230,9 @@ density_energy <- ggplot(my_data_clean_aug,
   theme_project() +
   scale_fill_project()
 
+ggsave("04_density_energy.png",
+       path = image_path,
+       device = "png")
 
 ##Density ridge for efficiency of the butterflies of the two population
 density_effic <- ggplot(my_data_clean_aug,
@@ -237,16 +246,9 @@ density_effic <- ggplot(my_data_clean_aug,
   theme_project() +
   scale_fill_project()
 
-
-## List of plots to save
-
-plots_analysis <- c(power,
-                    gene_expr,
-                    heat_maps,
-                    density_energy,
-                    density_effic)
-
-map(names(plots_analysis), ~save_plot_list("04_", plots_analysis, .x)) 
+ggsave("04_density_efficiency.png",
+       path = image_path,
+       device = "png")
 
 
 # Write data --------------------------------------------------------------
