@@ -126,7 +126,7 @@ pl5 <- fviz_contrib(pca_fit,
                     axes = 1,
                     xtickslab.rt = 90) + 
   ggtitle("Variables percentage contribution of first Principal Component") +
-    labs(x = "Principal Component",
+    labs(x = "",
          y = "Percentage") +
     scale_fill_project() +
     theme_project() +
