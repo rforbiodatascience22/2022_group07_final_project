@@ -1,6 +1,6 @@
 ---
-title: "Title of the presentation"
-author: "Group_7"
+title: 'Final presentation'
+author: 'Group_7'
 date: '2022-05-09'
 output: 
   ioslides_presentation:
@@ -14,14 +14,15 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduction
+## Genomic evidence and flight performance for different monarchs population {.columns-2}
 
-Something about our data and the paper
+- Analysis of two monarch populations
+- differencies in flight performance
+- correlation in the genetic profile
+</div>
 
-- 
-- Bullet 2
-- Bullet 3
-
+![picture of butterflies](introduction.png){heigth=10%}
+</div>
 ---
 Some more on introduction
 
