@@ -70,13 +70,3 @@ datadistribution_plot <- function(x, y, df){
     theme_project()
 }
 
-#function to save plots in images
-# save_plot <- function (plt) {
-#   ggsave(
-#     path = "results/plots/",
-#     filename = paste0(plt),
-#     device = "png",
-#     plot = plt
-#   )
-# }
-

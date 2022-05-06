@@ -16,7 +16,7 @@ my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv")
 library(viridis)
 library(patchwork)
 
-
+# I could also do a function and change only the inputs to create the different plots
 #A. flight duration
 time_mean <- my_data_clean_aug %>% 
   group_by(Sex,Population) %>% 
@@ -102,8 +102,6 @@ FLIGHT_PERFORMANCE <- ((flight_distance/flight_duration +
   plot_layout(guides = 'collect')
 
 
-
-
 # Write data --------------------------------------------------------------
 
 ggsave("flight_performance.png",
@@ -115,14 +113,26 @@ ggsave("flight_performance.png",
        units = "cm"
        )
 
+
+
 # Figure 8 from the paper ----------------------------------------------------------
-my_data_clean_aug %>% ...
+
+  
 
 # Write data --------------------------------------------------------------
 
 
 
-#Heatmap of gene expression between the two populations
+## Analysis of gene expression
+# calculation of the abundance of the two populations (only those ID analyzed for gene expression):
+
+count_population <- my_data_clean_aug %>% 
+  drop_na() %>% 
+  count (Population =="west")
+
+#Heatmap of gene expression between the two populations:
+# I used viridis because I like it but maybe it is more convenient a more delicate gradation since the data actually 
+# tell me that there is not a diffferent expression!
 
 subset_east <- my_data_clean_aug %>% 
   select(starts_with('Log'),ID,Population) %>% 
@@ -139,7 +149,10 @@ heat_map_east <-  ggplot (data = subset_east,
                                         fill = Log_expression)) +
   geom_tile() +
   facet_wrap( vars(Population), strip.position = "right" ) +
-  scale_fill_viridis_c(option = "D", direction = -1) + 
+  scale_fill_gradient2(low=" dark blue",
+                       mid="light blue",
+                       high="white",
+                       midpoint = -3) + 
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.text = element_text(size =6, hjust=1),
@@ -163,8 +176,12 @@ heat_map_west <-  ggplot (data = subset_west,
   geom_tile() +
   facet_wrap(vars(Population), 
               strip.position = "right" ) +
-  scale_fill_viridis_c(option = "D", 
-                       direction = -1) + 
+  # scale_fill_viridis_c(option = "D", 
+  #                      direction = -3) + alternatively:
+  scale_fill_gradient2(low=" dark blue",
+                       mid="light blue",
+                       high="white",
+                       midpoint = -3) +
   theme(axis.text.x = element_text(angle= 45),
         axis.text = element_text(size = 6, 
                                  hjust=1),
@@ -180,7 +197,7 @@ gene_expression <- (heat_map_east / heat_map_west) +
                                                           size = 16)))
 
 # Write data --------------------------------------------------------------
-
+# in results there will be two different files, one in gradiation of blue and another with viridis colors.
 ggsave("gene_expression.png",
        plot = gene_expression,
        device = "png",
@@ -189,3 +206,4 @@ ggsave("gene_expression.png",
        width = 16,
        units = "cm",
 )
+
