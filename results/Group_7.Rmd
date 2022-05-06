@@ -1,7 +1,9 @@
 ---
 title: "Title of the presentation"
-author: "Group_7"
-date: '2022-05-09'
+author: 
+  Anna M. Federica R.</br>
+  Siddhi J. Dimitrios L.</br> 
+date: 'May 9, 2022'
 output: 
   ioslides_presentation:
     widescreen: true
@@ -12,12 +14,25 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library("tidyverse")
 ```
 
 ## Introduction
 
 Something about our data and the paper
 
+
+```{r include=FALSE, echo=FALSE}
+#![picture of spaghetti](images/spaghetti.jpg){width=50%} 
+test_data <- as_tibble(read_tsv(file = "../data/03_my_data_clean_aug.tsv"))
+```
+```{r warning=FALSE}
+test_data %>% 
+  head(5)
+```
+
+
+text code
 - 
 - Bullet 2
 - Bullet 3
