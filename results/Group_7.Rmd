@@ -1,6 +1,8 @@
 ---
 title: 'Final presentation'
-author: 'Group_7'
+author: |
+  Anna Mioto </br> Dimitrios </br> Fede Rapelli |
+  </br> Paolo </br> Siddhi
 date: '2022-05-09'
 output: 
   ioslides_presentation:
@@ -14,33 +16,25 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Genomic evidence and flight performance for different monarchs population {.columns-2}
+## test
 
-- Analysis of two monarch populations
-- differencies in flight performance
-- correlation in the genetic profile
+<div class="columns-2">
+
+Analysis of two monarch populations:
+
+  - Differences in flight performance 
+  - Correlation in the genetic profile (6 genes involved in movement)
+
+  
+![](introduction.png){width=110%}
 </div>
 
-![picture of butterflies](introduction.png){heigth=10%}
-</div>
----
-Some more on introduction
+## Dataset
 
-## Materials and methods
-
-- Dplyr?
-- Tidyverse? 0.0
-- Giiiiiithubbbbb
-
-## Results
-```{r pressure}
-plot(pressure)
+```{r}
+library("readr")
+my_data <- read_tsv(file = "../data/02_my_data_clean.tsv",
+                    show_col_types = FALSE)
+my_data[1:5,]
 ```
-
-
-## Discussion
-```{r cars, echo = TRUE}
-summary(cars)
-```
-
 
