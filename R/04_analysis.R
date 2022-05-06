@@ -138,6 +138,9 @@ annotate_figure(plots,
                                 color = "black", 
                                 face = "bold", 
                                 size = 14))
+ggsave("04_fligth_var.png",
+       path = image_path,
+       device = "png")
 
 
 #Create a new variable 'mass' which consider ID, Sex and Population for all the 
