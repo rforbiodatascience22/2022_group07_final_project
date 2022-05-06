@@ -1,0 +1,46 @@
+---
+title: 'Final presentation'
+author: 'Group_7'
+date: '2022-05-09'
+output: 
+  ioslides_presentation:
+    widescreen: true
+    incremental: false
+    logo: DTU_logo.png
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Genomic evidence and flight performance for different monarchs population {.columns-2}
+
+- Analysis of two monarch populations
+- differencies in flight performance
+- correlation in the genetic profile
+</div>
+
+![picture of butterflies](introduction.png){heigth=10%}
+</div>
+---
+Some more on introduction
+
+## Materials and methods
+
+- Dplyr?
+- Tidyverse? 0.0
+- Giiiiiithubbbbb
+
+## Results
+```{r pressure}
+plot(pressure)
+```
+
+
+## Discussion
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+
