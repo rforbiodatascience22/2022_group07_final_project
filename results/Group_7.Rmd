@@ -28,9 +28,25 @@ Some more on introduction
 
 ## Materials and methods
 
-- Dplyr?
-- Tidyverse? 0.0
-- Giiiiiithubbbbb
+:::: {style="display: flex;"}
+
+::: {}
+Here is the **first** Div.
+
+```{r}
+str(iris)
+```
+:::
+
+::: {}
+And this block will be put on the right:
+
+```{r}
+plot(iris[, -5])
+```
+:::
+
+::::
 
 ## Results
 ```{r pressure}
