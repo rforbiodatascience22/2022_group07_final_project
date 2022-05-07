@@ -337,14 +337,17 @@ flight_power <- ggplot(data = my_data_clean_aug,
   scale_colour_brewer(palette = "Set2") 
 
 #patchwork of plots to represent "Flight performance":
-flight_performance_plots <- (flight_distance + 
-  flight_duration + 
-  flight_power + 
-  density_effic)
+flight_performance_plots <- flight_distance + 
+  flight_duration +  
+  flight_power +  
+  density_effic
 
 ggsave("04_flight_performance.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       unit = "in")
 
 
 
