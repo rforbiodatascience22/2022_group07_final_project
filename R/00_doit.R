@@ -15,7 +15,7 @@ if (!"caret" %in% installed.packages()) install.packages("caret")
 if (!"broom" %in% installed.packages()) install.packages("broom")
 if (!"factoextra" %in% installed.packages()) install.packages("factoextra")
 if (!"patchwork" %in% installed.packages()) install.packages("patchwork")
-
+if (!"DiagrammeR" %in% installed.packages()) install.packages("DiagrammeR")
 
 # Load libraries ----------------------------------------------------------
 library("ggthemes")
@@ -34,6 +34,7 @@ library("caret")
 library("broom")
 library("factoextra")
 library("patchwork")
+library("DiagrammeR")
 
 # Run all scripts ---------------------------------------------------------
 source(file = "R/01_load.R")
