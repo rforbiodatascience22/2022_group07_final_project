@@ -14,6 +14,7 @@ if (!"tibble" %in% installed.packages()) install.packages("tibble")
 if (!"caret" %in% installed.packages()) install.packages("caret")
 if (!"broom" %in% installed.packages()) install.packages("broom")
 if (!"factoextra" %in% installed.packages()) install.packages("factoextra")
+if (!"patchwork" %in% installed.packages()) install.packages("patchwork")
 
 
 # Load libraries ----------------------------------------------------------
@@ -32,6 +33,7 @@ library("tibble")
 library("caret")
 library("broom")
 library("factoextra")
+library("patchwork")
 
 # Run all scripts ---------------------------------------------------------
 source(file = "R/01_load.R")
