@@ -63,7 +63,10 @@ gene_expr_result = gene_expr_analysis %>%
 
 ggsave("05_gene_expression.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       unit = "in")
 
 #----------------------------------------------------------------------------
 
