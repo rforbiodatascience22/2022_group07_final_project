@@ -155,7 +155,15 @@ plots = map(numeric_ones,
 ## Results : Data visualization
 <div class="columns-2">
 
+  - Flight distance and duration are higher for Eastern monarchs which fly longer distances 
+  - Flight power and efficiency are higher for Western monarchs which fly relatively shorter distances
+
+
+![](plots/04_fligth_performance.png){width=100%}
+<center><font size="4">Analysis of flight power</font></center>
 </div>
+
+## Results : Data visualization
 
 ## Modelling on the gene expression data
 
