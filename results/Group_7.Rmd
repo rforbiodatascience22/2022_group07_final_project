@@ -1,8 +1,6 @@
 ---
 title: 'Final presentation'
-author: |
-  Anna Mioto </br> Dimitrios </br> Fede Rapelli |
-  </br> Paolo </br> Siddhi
+author: Anna
 date: '2022-05-09'
 output: 
   ioslides_presentation:
@@ -14,9 +12,35 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
 ```
 
-## test
+```{r echo=FALSE}
+library("ggthemes")
+library("tidyverse")
+library("mltools")
+library("broom")
+library("RColorBrewer")
+library("dplyr")
+library("ggpubr")
+library("ggridges")
+library("reshape2")
+library("GGally")
+library("readr")
+library("tibble")
+library("caret")
+library("broom")
+library("factoextra")
+```
+
+
+```{r echo=FALSE}
+gene_expr_data <- read_tsv(file = "../data/04_gene_expr_data.tsv",
+                           show_col_types = FALSE)
+```
+
+
+## Genomic evidence and flight performance for different monarchs population
 
 <div class="columns-2">
 
@@ -31,10 +55,40 @@ Analysis of two monarch populations:
 
 ## Dataset
 
-```{r}
-library("readr")
+```{r echo=FALSE}
 my_data <- read_tsv(file = "../data/02_my_data_clean.tsv",
                     show_col_types = FALSE)
 my_data[1:5,]
+```
+
+## Modelling on the gene expression data
+
+<div class="columns-2">
+
+![](plots/05_gene_expression.png){width=90%}
+
+Logistic regression on the gene expressions for evaluating significance in populations 
+</div>
+
+## Flowchart
+
+```{r}
+library("DiagrammeR")
+DiagrammeR::grViz("digraph {
+
+graph [layout = dot, rankdir = LR]
+
+# define the global styles of the nodes. We can override these in box if we wish
+node [shape = rectangle, style = filled, fillcolor = Linen]
+
+data1 [label = 'Dataset 1', shape = folder, fillcolor = Beige]
+data2 [label = 'Dataset 2', shape = folder, fillcolor = Beige]
+process [label =  'Process \n Data']
+statistical [label = 'Statistical \n Analysis']
+results [label= 'Results']
+
+# edge definitions with the node IDs
+{data1 data2}  -> process -> statistical -> results
+}")
 ```
 
