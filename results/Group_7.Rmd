@@ -159,7 +159,7 @@ plots = map(numeric_ones,
   - Flight power and efficiency are higher for Western monarchs which fly relatively shorter distances
 
 
-![](plots/04_fligth_performance.png){width=100%}
+![](plots/04_flight_performance.png){width=100%}
 <center><font size="4">Analysis of flight power</font></center>
 </div>
 
