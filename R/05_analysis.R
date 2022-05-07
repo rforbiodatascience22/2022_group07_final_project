@@ -143,7 +143,7 @@ pl2 <- pca_fit %>%
              .fittedPC2, 
              color = Population)) + 
   geom_point(size = 1.5) + 
-  ggtitle("PC1 vs PC2 plot with population") +
+  ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
   scale_fill_project() +
@@ -158,7 +158,7 @@ pl3 <- pca_fit %>%
              .fittedPC2,
              color = Sex)) + 
   geom_point(size = 1.5) + 
-  ggtitle("PC1 vs PC2 plot with sex") +
+  ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
   scale_fill_project() +
@@ -173,7 +173,7 @@ pl4 <- pca_fit %>%
              .fittedPC2,
              color = distance_class)) + 
   geom_point(size = 1.5) + 
-  ggtitle("PC1 vs PC2 plot with distance class") +
+  ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
   scale_fill_project() +
