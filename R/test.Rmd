@@ -1,0 +1,51 @@
+---
+title: "test"
+output: ioslides_presentation
+date: '2022-05-07'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=FALSE}
+load('myEnvironment.RData')
+```
+
+
+## Results: data exploring
+
+- Data augmentation : new variables created: *efficiency* and *distance_class*
+- Plots to visualize our data and generally understand them
+- Analysis of data through:  
+    - Plot visualization also replicating some from the paper  
+    - Logistic regression  
+    - PCA analysis and KNN   
+
+
+## Methods
+<div class="rows-2">
+  
+    
+- dasdas
+- dasdas
+  
+  
+  
+<div class="centered"> 
+![violin_plot_1](02_distance.png){width=30%}
+![violin_plot02](02_averagevelocity.png){width=30%} 
+ </div>
+ </div>
+
+## test
+
+
+```{r, echo=FALSE}
+load('myEnvironment.RData')
+```
+ 
+
+
+
+
