@@ -56,9 +56,10 @@ gene_expr_result = gene_expr_analysis %>%
   theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
-  scale_fill_project() +
   labs(x = "Gene",
-       y = "P-value") 
+       y = "P-value")+ 
+     scale_colour_project()
+
 
 ggsave("05_gene_expression.png",
        path = image_path,
@@ -110,7 +111,12 @@ pl1 <- pca_fit %>%
   scale_x_continuous(breaks = 1:9) +
   scale_y_continuous(labels = scales::percent_format(),
                      expand = expansion(mult = c(0,
-                                                 0.01))) 
+                                                 0.01))) +
+  ggtitle("Percentage of variance explained") +
+  labs(y = "Percentage",
+       x = "Principal Components") +
+  theme_project() 
+
 ggsave("05_data_exlained_PCs.png",
        path = image_path,
        device = "png")
@@ -121,9 +127,11 @@ pl5 <- fviz_contrib(pca_fit,
                     "var",
                     axes = 1,
                     xtickslab.rt = 90) + 
-  theme_minimal() +
+  ggtitle("Variables percentage contribution of first Principal Component") +
+    labs(x = "",
+         y = "Percentage") +
+    theme_project() +
   rotate_x()
-  ggtitle("Variables percentage contribution of first Principal Components")
 
 ggsave("05_data_contribution_PCs.png",
        path = image_path,
@@ -135,7 +143,12 @@ pl2 <- pca_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Population)) + 
-  geom_point(size = 1.5)
+  geom_point(size = 1.5) + 
+  ggtitle("PC1 vs PC2") +
+  labs(x = "PC1",
+       y = "PC2") +
+  scale_colour_project() +
+  theme_project()
 ggsave("05_PCA_population.png",
        path = image_path,
        device = "png")
@@ -145,7 +158,12 @@ pl3 <- pca_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2,
              color = Sex)) + 
-  geom_point(size = 1.5)
+  geom_point(size = 1.5) + 
+  ggtitle("PC1 vs PC2") +
+  labs(x = "PC1",
+       y = "PC2") +
+  scale_colour_project() +
+  theme_project()
 ggsave("05_PCA_sex.png",
        path = image_path,
        device = "png")
@@ -155,7 +173,12 @@ pl4 <- pca_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2,
              color = distance_class)) + 
-  geom_point(size = 1.5)
+  geom_point(size = 1.5) + 
+  ggtitle("PC1 vs PC2") +
+  labs(x = "PC1",
+       y = "PC2") +
+  scale_colour_project() +
+  theme_project()
 
 ggsave("05_PCA_distanceclass.png",
        path = image_path,
@@ -181,13 +204,16 @@ rotation_matrix <- pca_fit %>%
   geom_segment(xend = 0,
                yend = 0,
                arrow = arrow_style) +
+  ggtitle("Rotation matrix") +
   geom_text(aes(label = column),
             hjust = 1,
             nudge_x = -0.02, 
             color = "#904C2F") +
   xlim(-1.25, .5) +
   ylim(-.5, 1) +
-  coord_fixed()  # fix aspect ratio to 1:1
+  coord_fixed() +  # fix aspect ratio to 1:1 
+scale_colour_project() +
+  theme_project()
 
 ggsave("05_PCA_rotationmatrix.png",
        path = image_path,
@@ -197,7 +223,9 @@ ggsave("05_PCA_rotationmatrix.png",
 pca_fit %>% 
   tidy() %>% 
   fviz_nbclust(FUNcluster = kmeans, 
-               k.max = 8)
+               k.max = 8) +
+  scale_colour_project() +
+  theme_project()
 ggsave("05_optimal_clusters.png",
        path = image_path,
        device = "png")
@@ -208,7 +236,13 @@ pl5 <- pca_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2,
              color = .cluster)) + 
-  geom_point(size = 1.5)
+  geom_point(size = 1.5) +
+  ggtitle("PC1 vs PC2") +
+  labs(x = "PC1",
+       y = "PC2",
+       color='Clusters') +
+  scale_colour_project() +
+  theme_project() 
 
 ggsave("05_PCA_KNN.png",
        path = image_path,

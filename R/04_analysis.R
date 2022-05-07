@@ -133,12 +133,9 @@ plots <- ggarrange(effic,
                    energy,
                    ncol = 2,
                    nrow = 2)
-annotate_figure(plots,
-                top = text_grob("Flight variables between populations and sex",
-                                color = "black", 
-                                face = "bold", 
-                                size = 14))
-ggsave("04_fligth_var.png",
+
+
+ggsave("04_flight_var.png",
        path = image_path,
        device = "png")
 
@@ -210,13 +207,7 @@ heat_west <- express %>%
 heat_maps <- ggarrange(heat_east,
                        heat_west,
                        ncol = 1,
-                       nrow = 2) %>% 
-  annotate_figure(plots, 
-                  top = text_grob("Heatmaps for genes expression",
-                                  color = "black",
-                                  face = "bold",
-                                  size = 14))
-
+                       nrow = 2) 
 ggsave("04_heat_maps.png",
        path = image_path,
        device = "png")
@@ -337,16 +328,33 @@ flight_power <- ggplot(data = my_data_clean_aug,
   scale_colour_brewer(palette = "Set2") 
 
 #patchwork of plots to represent "Flight performance":
-flight_performance_plots <- (flight_distance + 
-  flight_duration + 
-  flight_power + 
-  density_effic)
+flight_performance_plots <- flight_distance + 
+  flight_duration +  
+  flight_power +  
+  density_effic
 
-ggsave("04_fligth_performance.png",
+ggsave("04_flight_performance.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       unit = "in")
 
+#t.test analysis for significative difference in flight performance variables:
+#distance
+statistic_distance <- t.test(distance ~ Population, 
+                    data = my_data_clean_aug)
 
+#duration
+statistic_duration <- t.test(time.min~ Population, 
+                             data = my_data_clean_aug)
+
+#power
+statistic_power <- t.test(power ~ Population, 
+                          data = my_data_clean_aug)
+#efficiency
+statistic_efficiency <- t.test(efficiency ~ Population, 
+                          data = my_data_clean_aug)
 
 
 # Write data --------------------------------------------------------------
