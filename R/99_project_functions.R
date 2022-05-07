@@ -12,6 +12,10 @@ theme_project <- function() {
   theme_gdocs(base_size = 7)
 }
 
+scale_colour_project <- function() {
+  scale_colour_brewer(palette = "Set2")
+}
+
 scale_fill_project <- function() {
   scale_fill_brewer(palette = "Set2")
 }

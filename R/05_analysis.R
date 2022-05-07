@@ -49,15 +49,15 @@ gene_expr_result = gene_expr_analysis %>%
              y = neg_log10_p,
              colour = identified_as,
              label = gene_label)) + 
-  geom_point(alpha = 0.5,
-             size = 2) +
+  geom_point(size = 3) +
   geom_hline(yintercept = -log10(0.05),
              linetype = "dashed") +
   theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "Minus log10(p)") 
+       y = "Minus log10(p)")+
+  scale_colour_project()
 
 ggsave("05_gene_expression.png",
        path = image_path,
@@ -113,8 +113,8 @@ pl1 <- pca_fit %>%
   ggtitle("Percentage of variance explained") +
   labs(y = "Percentage",
        x = "Principal Components") +
-  scale_fill_project() +
   theme_project() 
+
 ggsave("05_data_exlained_PCs.png",
        path = image_path,
        device = "png")
@@ -128,7 +128,6 @@ pl5 <- fviz_contrib(pca_fit,
   ggtitle("Variables percentage contribution of first Principal Component") +
     labs(x = "",
          y = "Percentage") +
-    scale_fill_project() +
     theme_project() +
   rotate_x()
 
@@ -146,7 +145,7 @@ pl2 <- pca_fit %>%
   ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
-  scale_fill_project() +
+  scale_colour_project() +
   theme_project()
 ggsave("05_PCA_population.png",
        path = image_path,
@@ -161,7 +160,7 @@ pl3 <- pca_fit %>%
   ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
-  scale_fill_project() +
+  scale_colour_project() +
   theme_project()
 ggsave("05_PCA_sex.png",
        path = image_path,
@@ -176,7 +175,7 @@ pl4 <- pca_fit %>%
   ggtitle("PC1 vs PC2") +
   labs(x = "PC1",
        y = "PC2") +
-  scale_fill_project() +
+  scale_colour_project() +
   theme_project()
 
 ggsave("05_PCA_distanceclass.png",
@@ -211,7 +210,7 @@ rotation_matrix <- pca_fit %>%
   xlim(-1.25, .5) +
   ylim(-.5, 1) +
   coord_fixed() +  # fix aspect ratio to 1:1 
-scale_fill_project() +
+scale_colour_project() +
   theme_project()
 
 ggsave("05_PCA_rotationmatrix.png",
@@ -223,7 +222,7 @@ pca_fit %>%
   tidy() %>% 
   fviz_nbclust(FUNcluster = kmeans, 
                k.max = 8) +
-  scale_fill_project() +
+  scale_colour_project() +
   theme_project()
 ggsave("05_optimal_clusters.png",
        path = image_path,
@@ -240,8 +239,7 @@ pl5 <- pca_fit %>%
   labs(x = "PC1",
        y = "PC2",
        color='Clusters') +
-  scale_fill_project() +
-  scale_color_hue(labels = c("Cluster 1", "Cluster 2")) +
+  scale_colour_project() +
   theme_project() 
 
 ggsave("05_PCA_KNN.png",
