@@ -133,11 +133,7 @@ plots <- ggarrange(effic,
                    energy,
                    ncol = 2,
                    nrow = 2)
-annotate_figure(plots,
-                top = text_grob("Fligth variables between populations and sex",
-                                color = "black", 
-                                face = "bold", 
-                                size = 14))
+
 ggsave("04_flight_var.png",
        path = image_path,
        device = "png")
@@ -210,13 +206,7 @@ heat_west <- express %>%
 heat_maps <- ggarrange(heat_east,
                        heat_west,
                        ncol = 1,
-                       nrow = 2) %>% 
-  annotate_figure(plots, 
-                  top = text_grob("Heatmaps for genes expression",
-                                  color = "black",
-                                  face = "bold",
-                                  size = 14))
-
+                       nrow = 2) 
 ggsave("04_heat_maps.png",
        path = image_path,
        device = "png")
