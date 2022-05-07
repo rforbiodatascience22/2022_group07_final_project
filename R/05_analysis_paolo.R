@@ -98,9 +98,43 @@ PCA_data <- my_data_clean_aug %>%
 #the two populations thanks to the information included in the other variables
 
 #Model PCA
-pca_fit_population <- PCA_data %>%
-  select(-match("east|west")) %>%  #Do other variables include this info?
+PCA_fit_population <- PCA_data %>%
+  select(-matches("east|west")) %>%  #Do other variables include this info?
   prcomp(scale = TRUE)
+
+#Explained variance
+PCA_population_explvar <- PCA_fit_population %>%
+  tidy(matrix = "eigenvalues") %>%
+  ggplot(aes(PC,
+             percent)) +
+  geom_col(fill = "#56B4E9",
+           alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(labels = scales::percent_format(),
+                     expand = expansion(mult = c(0,
+                                                 0.01))) +
+  theme_project()
+
+#Variables contribution
+PCA_population_contribution <- fviz_contrib(PCA_fit_population,
+                    "var",
+                    axes = 1,
+                    xtickslab.rt = 90) + 
+  theme_minimal() +
+  rotate_x()
+ggtitle("Variables percentage contribution of first Principal Components")
+
+#Plot PC1 vs PC2
+PCA_population <- PCA_fit_population %>%
+  augment(my_data_clean_aug) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1,
+             .fittedPC2, 
+             color = Population)) + 
+  geom_point(size = 1.5)
+
+
+
+
 
 
 
