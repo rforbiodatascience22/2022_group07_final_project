@@ -15,11 +15,3 @@ slides > slide:not(.nobackground):before {
   background-size: 30px 45px;
 }
 
-
-#Asstag {
-  color: blue;
-}
-
-.emphasized{
-  font-size: 1.2em;
-}

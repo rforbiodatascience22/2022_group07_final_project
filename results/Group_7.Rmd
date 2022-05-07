@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-```{r echo=FALSE}
+```{r}
 library("ggthemes")
 library("tidyverse")
 library("mltools")
@@ -38,7 +38,7 @@ load('../myEnvironment.RData')
 ```
 
 
-```{r echo=FALSE}
+```{r}
 gene_expr_data <- read_tsv(file = "../data/04_gene_expr_data.tsv",
                            show_col_types = FALSE)
 ```
@@ -164,17 +164,41 @@ plots = map(numeric_ones,
 </div>
 
 ## Results : Data visualization
+<div class="rows-2">
 
-## Modelling on the gene expression data
+ - Genes 203 and 379 are heavily downregulated in both populations
+ - Genes C2, C4, C5 and C7 seem to be comparatively more downregulated in Eastern Monarchs
+
+<div>
+<div class="columns-2">
+
+![](plots/04_gene_expression.png){width=100%}
+<div>
+
+![](plots/04_heat_maps.png){width=100%}
+
+</div>
+</div>
+</div>
+
+## Results : Modelling
 
 <div class="columns-2">
 
-![](plots/05_gene_expression.png){width=90%}
+Logistic regression to determine significance of gene expression on populations
+ - All genes show no significant relation to the differences between Eastern and Western Monarchs
+ - Gene C5 which is the myosin heavy chain gene, shows comparatively higher association with populations
 
-Logistic regression on the gene expressions for evaluating significance in populations 
+![](plots/05_gene_expression.png){width=90%}
 </div>
 
 
+## Results : Modelling
+
+Principal Component Analysis and clustering 
+
+
+## Discussion
 
 
 
