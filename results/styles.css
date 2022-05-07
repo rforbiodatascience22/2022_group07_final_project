@@ -10,19 +10,9 @@ height: 170px !important;
 }
 
 slides > slide:not(.nobackground):before {
-  width: 50px;
-  height: 65px;
-  background-size: 50px 65px;
+  width: 30px;
+  height: 45px;
+  background-size: 30px 45px;
 }
-
-
-#Asstag {
-  color: blue;
-}
-
-.emphasized{
-  font-size: 1.2em;
-}
-
 
 

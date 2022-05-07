@@ -39,25 +39,27 @@ gene_expr_analysis <- gene_expr_model %>%
   mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
                                    TRUE ~ "Non-significant"), 
          gene_label = case_when(identified_as == "Significant" ~ Genes,
-                                identified_as == "Non-significant" ~ "")) %>% 
-  mutate(neg_log10_p = -log10(p.value))
+                                identified_as == "Non-significant" ~ Genes))
 
 # Visualize ---------------------------------------------------------------
 #plotting the significance values
 gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = Genes,
-             y = neg_log10_p,
+             y = p.value,
              colour = identified_as,
              label = gene_label)) + 
-  geom_point(size = 3) +
-  geom_hline(yintercept = -log10(0.05),
+  geom_point(size = 5) +
+  geom_text(hjust=1.5, vjust=1) +
+  geom_hline(yintercept = 0.05,
              linetype = "dashed") +
+  geom_text(aes(0, 0.05, label = "P-value=0.05",hjust = 0, vjust = -1)) +
   theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "Minus log10(p)")+
-  scale_colour_project()
+       y = "P-value")+ 
+     scale_colour_project()
+
 
 ggsave("05_gene_expression.png",
        path = image_path,

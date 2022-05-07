@@ -134,6 +134,7 @@ plots <- ggarrange(effic,
                    ncol = 2,
                    nrow = 2)
 
+
 ggsave("04_flight_var.png",
        path = image_path,
        device = "png")
