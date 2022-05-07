@@ -62,8 +62,11 @@ gene_expr <- express %>%
   scale_fill_project()
 
 ggsave("04_gene_expression.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
 
 ##Histogram plots:
 #Comparison of the efficiency between butterflies of the two population and 
@@ -139,8 +142,11 @@ annotate_figure(plots,
                                 face = "bold", 
                                 size = 14))
 ggsave("04_fligth_var.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
 
 
 #Create a new variable 'mass' which consider ID, Sex and Population for all the 
@@ -218,8 +224,12 @@ heat_maps <- ggarrange(heat_east,
                                   size = 14))
 
 ggsave("04_heat_maps.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
+
 
 ##Density ridge for energy consumed by the butterflies of the two population
 density_energy <- ggplot(my_data_clean_aug,
@@ -234,8 +244,11 @@ density_energy <- ggplot(my_data_clean_aug,
   scale_fill_project()
 
 ggsave("04_density_energy.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
 
 ##Density ridge for efficiency of the butterflies of the two population
 density_effic <- ggplot(my_data_clean_aug,
@@ -251,8 +264,11 @@ density_effic <- ggplot(my_data_clean_aug,
   scale_fill_project() 
 
 ggsave("04_density_efficiency.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
 
 ##Create plots from figure 2 in the paper
 
@@ -281,7 +297,7 @@ flight_duration <- ggplot(data = my_data_clean_aug,
   labs(title="Flight duration",
        x="",
        y="time (min)") + 
-  scale_colour_brewer(palette = "Set2") 
+  scale_colour_project 
 
 #flight distance plot: data distribution jitter and average value for the two populations, splitted by sex
 #dataset with time means to use in the plot
@@ -308,7 +324,7 @@ flight_distance <- ggplot(data = my_data_clean_aug,
   labs(title="Flight distance",
        x="",
        y=" Flight distance (km)") + 
-  scale_colour_brewer(palette = "Set2") 
+  scale_colour_project 
 
 #flight power plot: data distribution jitter and average value for the two populations, splitted by sex
 #dataset with time means to use in the plot
@@ -334,7 +350,7 @@ flight_power <- ggplot(data = my_data_clean_aug,
   labs(title="Flight power",
        x="",
        y="power (W)") + 
-  scale_colour_brewer(palette = "Set2") 
+  scale_colour_project 
 
 #patchwork of plots to represent "Flight performance":
 flight_performance_plots <- (flight_distance + 
@@ -343,11 +359,14 @@ flight_performance_plots <- (flight_distance +
   density_effic)
 
 ggsave("04_fligth_performance.png",
-       path = image_path,
-       device = "png")
+       device = "png",
+       path = "results/plots/",
+       height = 12,
+       width = 16,
+       units = "cm")
 
 
-
+       
 
 # Write data --------------------------------------------------------------
 write_tsv(x = express,

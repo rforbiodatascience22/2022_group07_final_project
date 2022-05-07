@@ -12,6 +12,10 @@ theme_project <- function() {
   theme_gdocs(base_size = 7)
 }
 
+scale_colour_project <- function() {
+  scale_colour_brewer(palette = "Set2")
+}
+
 scale_fill_project <- function() {
   scale_fill_brewer(palette = "Set2")
 }
@@ -106,5 +110,9 @@ image_path = "results/plots"
 save_plot_list <- function(prefix, plot_list, .x) {
   ggsave(filename = paste0(prefix, .x, ".png"),
          path = image_path,
-         plot = plot_list[[.x]])
+         plot = plot_list[[.x]],
+         height = 12,
+         width = 16,
+         units = "cm"
+  )
 }
