@@ -138,7 +138,7 @@ annotate_figure(plots,
                                 color = "black", 
                                 face = "bold", 
                                 size = 14))
-ggsave("04_fligth_var.png",
+ggsave("04_flight_var.png",
        path = image_path,
        device = "png")
 
@@ -342,7 +342,7 @@ flight_performance_plots <- (flight_distance +
   flight_power + 
   density_effic)
 
-ggsave("04_fligth_performance.png",
+ggsave("04_flight_performance.png",
        path = image_path,
        device = "png")
 
