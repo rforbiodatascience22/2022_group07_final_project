@@ -339,7 +339,21 @@ ggsave("04_flight_performance.png",
        width = 7,
        unit = "in")
 
+#t.test analysis for significative difference in flight performance variables:
+#distance
+statistic_distance <- t.test(distance ~ Population, 
+                    data = my_data_clean_aug)
 
+#duration
+statistic_duration <- t.test(time.min~ Population, 
+                             data = my_data_clean_aug)
+
+#power
+statistic_power <- t.test(power ~ Population, 
+                          data = my_data_clean_aug)
+#efficiency
+statistic_efficiency <- t.test(efficiency ~ Population, 
+                          data = my_data_clean_aug)
 
 
 # Write data --------------------------------------------------------------
