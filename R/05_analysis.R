@@ -69,7 +69,7 @@ ggsave("05_gene_expression.png",
 
 # Remove all but numeric variables and keep only necessary variables
 PCA_data <- my_data_clean_aug %>% 
-  select(-(matches("energy|Gene|eff|time.sec|power|maxvelocity|ID|distance_class"))) %>% 
+  select(-(matches("energy|Gene|eff|time.sec|power|maxvelocity|ID|distance_class|PC1_wing_size|PC2_wing_shape"))) %>% 
   as_tibble()
 
 # One hot encoding
@@ -77,16 +77,17 @@ final_data <- PCA_data %>%
   mutate(value = 1)  %>%
   spread(Sex,
          value,
-         fill = 0 ) %>%
-  mutate(value = 1) %>%
+         fill = 0 ) %>% 
+mutate(value = 1)  %>%
   spread(Population,
          value,
          fill = 0 )
 
 # Model data---------------------------------------------------------------------
 
-# Perform PCA
+# Perform PCA to classify population
 pca_fit <- final_data %>%
+  select(-match("east|west"))
   prcomp(scale = TRUE)
 
 # Perform K-nearest Neighbors
