@@ -75,7 +75,7 @@ div.footnotes {
 
 <div class="columns-2">
 
-Analysis of two monarch populations, <span style="color:#66C2A5">East</span> and <span style="color:#FC8D62">West</span>:
+Analysis of the two populations, <span style="color:#66C2A5">Eastern Monarchs</span> and <span style="color:#FC8D62">Western Monarchs</span>:
 
   - Differences in flight performance 
   - Correlation in the genetic profiles to check for distinction in the two populations
