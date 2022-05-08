@@ -109,8 +109,9 @@ results [label= 'Results']
 {data1 data2}  -> process -> augment -> visual -> statistical -> results
 }")
 ```
+
 ## Dataset
-This is the final joined dataset we used for our analysis
+This is the final joined dataset we used for our analysis-
 ```{r}
 my_data <- read_tsv(file = "../data/02_my_data_clean.tsv",
                     show_col_types = FALSE)
