@@ -331,7 +331,7 @@ flight_power <- ggplot(data = my_data_clean_aug,
 flight_performance_plots <- flight_distance + 
   flight_duration +  
   flight_power +  
-  density_effic
+  density_effic 
 
 ggsave("04_flight_performance.png",
        path = image_path,

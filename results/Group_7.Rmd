@@ -82,7 +82,7 @@ Analysis of two monarch populations, <span style="color:black">East</span> and <
 
   
 ![](introduction.png){width=110%}
-<center><font size="4"><footnote content="Talla, Venkat, et al. “Genomic Evidence for Gene Flow between Monarchs with Divergent Migratory Phenotypes and Flight Performance.” Molecular Ecology, vol. 29, no. 14, 2020, pp. 2567–2582">Map showing sampling locations</footnote></font></center>
+<center><font size="4"><footnote content="Talla, Venkat, et al. “Genomic Evidence for Gene Flow between Monarchs with Divergent Migratory Phenotypes and Flight Performance.” Molecular Ecology, vol. 29, no. 14, 2020, pp. 2567–2582">Fig.1-Map showing sampling locations</footnote></font></center>
 
 </div>
 
@@ -94,10 +94,10 @@ DiagrammeR::grViz("digraph {
 graph [layout = dot, rankdir = LR]
 
 # define the global styles of the nodes. We can override these in box if we wish
-node [shape = oval, style = filled, fillcolor = LightPink, fontname = Arial]
+node [shape = oval, style = filled, fillcolor = Turquoise, fontname = Arial]
 
-data1 [label = 'Dataset 1', shape = folder, fillcolor = PaleTurquoise]
-data2 [label = 'Dataset 2', shape = folder, fillcolor = PaleTurquoise]
+data1 [label = 'Dataset 1', shape = folder, fillcolor = SeaGreen]
+data2 [label = 'Dataset 2', shape = folder, fillcolor = SeaGreen]
 process [label =  'Data \n Processing']
 augment [label = 'Data \n Augmentation']
 visual [label = 'Data \n Visualizations']
@@ -117,12 +117,12 @@ head(my_data)
 ```
 
 ## Methods
- - Data augmentation - new variables created: efficiency and distance_class
- - Plot visualizations - plots to visualize our data and generally understand them
- - Statistical analysis:
+ - **Data augmentation** - new variables created: *efficiency* and *distance class*
+ - **Plot visualizations** - plots to visualize our data and generally understand them
+ - **Statistical analysis**:
     - Visualizations of augmented variables
     - Logistic regression
-    - PCA analysis and KNN
+    - PCA analysis and clustering
 
 ## Results : Data exploring
 <div class="rows-2">
@@ -136,10 +136,10 @@ plots = map(numeric_ones,
 <div>
 <div class="columns-2">
 <div align="center">
-![<font size="4">Violin plot of average velocity</font>](plots/02_averagevelocity.png){width=69%}
+![<font size="4">Fig.2-Violin plot of average velocity</font>](plots/02_averagevelocity.png){width=69%}
 
 
-![<font size="4">Violin plot of wing shape</font>](plots/02_PC2_wing_shape.png){width=69%}
+![<font size="4">Fig.3-Violin plot of wing shape</font>](plots/02_PC2_wing_shape.png){width=69%}
 </div>
 </div>
 </div>
@@ -153,7 +153,8 @@ plots = map(numeric_ones,
 
 
 ![](plots/04_flight_performance.png){width=100%}
-<center><font size="4">Analysis of flight power</font></center>
+
+<center><font size="4">Fig.4-Analysis of flight performance</font></center>
 </div>
 
 ## Results : Data visualization
@@ -164,12 +165,12 @@ plots = map(numeric_ones,
 
 <div>
 <div class="columns-2">
-
-![](plots/04_gene_expression.png){width=100%}
-<div>
-
-![](plots/04_heat_maps.png){width=100%}
-
+<center>
+![<font size="4">Fig.5-Box plots of gene expression</font>](plots/04_gene_expression.png){width=70%}
+</center>
+<center>
+![<font size="4">Fig.6-Heat maps of gene expression</font>](plots/04_heat_maps.png){width=70%}
+</center>
 </div>
 </div>
 </div>
@@ -177,12 +178,12 @@ plots = map(numeric_ones,
 ## Results : Modelling
 
 <div class="columns-2">
-
 Logistic regression to determine significance of gene expression on populations
  - All genes show no significant relation to the differences between Eastern and Western Monarchs
  - Gene C5 which is the myosin heavy chain gene, shows comparatively higher association with populations
-
-![](plots/05_gene_expression.png){width=90%}
+<center>
+![](plots/05_gene_expression.png){width=95%}</center>
+<center><font size="4">Fig.7-Logistic regression on gene expression</font></center>
 </div>
 
 
@@ -192,6 +193,7 @@ Principal Component Analysis and clustering
 
 
 ## Discussion
+
 
 
 

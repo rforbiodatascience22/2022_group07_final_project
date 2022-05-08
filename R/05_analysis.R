@@ -36,10 +36,10 @@ gene_expr_model <- gene_expr %>%
 # Analysis -----------------------------------------------------------------
 #creating labels based on significance of analysis
 gene_expr_analysis <- gene_expr_model %>% 
-  mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
-                                   TRUE ~ "Non-significant"), 
-         gene_label = case_when(identified_as == "Significant" ~ Genes,
-                                identified_as == "Non-significant" ~ Genes))
+  mutate(identified_as = case_when(p.value >=0.05 ~ "Non-significant",
+                                   p.value < 0.05 ~ "Significant"), 
+         gene_label = case_when(identified_as == "Non-significant" ~ Genes,
+                                identified_as == "Significant" ~ Genes))
 
 # Visualize ---------------------------------------------------------------
 #plotting the significance values
@@ -57,8 +57,7 @@ gene_expr_result = gene_expr_analysis %>%
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "P-value")+ 
-     scale_colour_project()
+       y = "P-value") 
 
 
 ggsave("05_gene_expression.png",
