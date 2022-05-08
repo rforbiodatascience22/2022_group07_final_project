@@ -86,20 +86,18 @@ Analysis of two monarch populations, <span style="color:black">East</span> and <
 
 </div>
 
-## Flowchart{.flexbox .vcenter}
-
-
-```{r}
+## Flowchart
+```{r fig.width=10, fig.height=5}
 library("DiagrammeR")
 DiagrammeR::grViz("digraph {
 
 graph [layout = dot, rankdir = LR]
 
 # define the global styles of the nodes. We can override these in box if we wish
-node [shape = rectangle, style = filled, fillcolor = Linen]
+node [shape = oval, style = filled, fillcolor = LightPink, fontname = Arial]
 
-data1 [label = 'Dataset 1', shape = folder, fillcolor = Beige]
-data2 [label = 'Dataset 2', shape = folder, fillcolor = Beige]
+data1 [label = 'Dataset 1', shape = folder, fillcolor = PaleTurquoise]
+data2 [label = 'Dataset 2', shape = folder, fillcolor = PaleTurquoise]
 process [label =  'Data \n Processing']
 augment [label = 'Data \n Augmentation']
 visual [label = 'Data \n Visualizations']
@@ -110,7 +108,6 @@ results [label= 'Results']
 {data1 data2}  -> process -> augment -> visual -> statistical -> results
 }")
 ```
-
 ## Dataset
 This is the final joined dataset we used for our analysis
 ```{r}
