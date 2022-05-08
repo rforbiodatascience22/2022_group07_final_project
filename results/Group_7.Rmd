@@ -1,6 +1,6 @@
 ---
-title: 'Final presentation'
-author: Anna
+title: Final presentation
+author: <font size="8"><b>Group 7</b></font>
 date: '2022-05-09'
 output: 
   ioslides_presentation:
@@ -75,7 +75,7 @@ div.footnotes {
 
 <div class="columns-2">
 
-Analysis of two monarch populations, <span style="color:black">East</span> and <span style="color:red">West</span>:
+Analysis of two monarch populations, <span style="color:#66C2A5">East</span> and <span style="color:#FC8D62">West</span>:
 
   - Differences in flight performance 
   - Correlation in the genetic profiles to check for distinction in the two populations
