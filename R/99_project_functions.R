@@ -110,5 +110,8 @@ image_path = "results/plots"
 save_plot_list <- function(prefix, plot_list, .x) {
   ggsave(filename = paste0(prefix, .x, ".png"),
          path = image_path,
-         plot = plot_list[[.x]])
+         plot = plot_list[[.x]],
+         height = 7,
+         width = 7,
+         unit = "in")
 }
