@@ -129,13 +129,6 @@ head(my_data)
 ## Results : Data exploration
 <div class="rows-2">
 
-```{r}
-numeric_ones <- my_data_clean %>%
-  select(where(is.numeric),-starts_with('Gene')) %>%
-  colnames() %>%
-  set_names() #this function belongs to purr package and uses the values of vector as names
-```
-
 
 ```{r echo=TRUE}
 plots = map(numeric_ones, 
