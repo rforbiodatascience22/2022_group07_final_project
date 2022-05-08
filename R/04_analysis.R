@@ -22,7 +22,11 @@ power <- my_data_clean_aug %>%
      
 ggsave("04_power_boxplot.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in"
+)
 
 # Create a new variable 'express' which consider ID, Sex and Population just for 
 # the butterflies from which we have the gene expressions.
@@ -61,7 +65,10 @@ gene_expr <- express %>%
 
 ggsave("04_gene_expression.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in")
 
 # Histogram plots:
 # Comparison of the efficiency between butterflies of the two population and 
@@ -135,7 +142,10 @@ plots <- ggarrange(effic,
 
 ggsave("04_flight_var.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in")
 
 
 # Create a new variable 'mass' which consider ID, Sex and Population for all the 
@@ -209,7 +219,10 @@ heat_maps <- ggarrange(heat_east,
                        nrow = 2) 
 ggsave("04_heat_maps.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in")
 
 ## Density ridge for energy consumed by the butterflies of the two population
 density_energy <- ggplot(my_data_clean_aug,
@@ -225,7 +238,10 @@ density_energy <- ggplot(my_data_clean_aug,
 
 ggsave("04_density_energy.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in")
 
 ## Density ridge for efficiency of the butterflies of the two population
 density_effic <- ggplot(my_data_clean_aug,
@@ -242,7 +258,10 @@ density_effic <- ggplot(my_data_clean_aug,
 
 ggsave("04_density_efficiency.png",
        path = image_path,
-       device = "png")
+       device = "png",
+       height = 7,
+       width = 7,
+       units = "in")
 
 # Create plots from figure 2 in the paper
 
