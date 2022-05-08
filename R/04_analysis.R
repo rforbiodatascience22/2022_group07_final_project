@@ -53,7 +53,7 @@ express <- my_data_clean_aug %>% #
 gene_expr <- express %>%
   ggplot(aes(x = Population,
              y = Expression,
-             fill = Sex)) +
+             fill = Population)) +
   geom_boxplot() +
   facet_grid(~ Genes) +
   labs(y = "Gene Expression",
@@ -61,7 +61,7 @@ gene_expr <- express %>%
        title = "Gene expressions") +
   theme_project() +
   scale_fill_project() +
-  rotate_x()
+  theme(axis.text.x = element_blank()) 
 
 ggsave("04_gene_expression.png",
        path = image_path,
