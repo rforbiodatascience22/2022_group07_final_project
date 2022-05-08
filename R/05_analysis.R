@@ -46,19 +46,25 @@ gene_expr_analysis <- gene_expr_model %>%
 gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = Genes,
              y = p.value,
-             colour = identified_as,
+             col = identified_as,
              label = gene_label)) + 
-  geom_point(size = 5) +
-  geom_text(hjust=1.5, vjust=1) +
+  geom_point(size = 5,
+             col = "#FC8D62") +
+  geom_text(hjust=1.5, 
+            vjust=1) +
   geom_hline(yintercept = 0.05,
              linetype = "dashed") +
-  geom_text(aes(0, 0.05, label = "P-value=0.05",hjust = 0, vjust = -1)) +
+  geom_text(aes(0, 
+                0.05, 
+                label = "P-value=0.05",
+                hjust = 0, 
+                vjust = -1)) +
   theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "P-value")+ 
-     scale_colour_project()
+       y = "P-value",
+       col = "Identified as")
 
 
 ggsave("05_gene_expression.png",
