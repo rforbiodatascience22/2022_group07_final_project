@@ -17,7 +17,7 @@ gene_expr <- gene_expr_data %>%
   mutate(Population = case_when(Population == "east" ~ 0,
                                 Population == "west" ~ 1)) %>% 
   group_by(Genes) %>%
-  nest %>% 
+  nest %>% https://535b399df14e49dba335b476b5c0dce4.app.rstudio.cloud/graphics/1ff6cefe-30e1-47ff-b919-01a4f6ece28c.png
   ungroup 
 
 # Model data -------------------------------------------------------------

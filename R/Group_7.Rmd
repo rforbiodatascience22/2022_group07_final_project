@@ -1,8 +1,8 @@
 ---
 title: 'Final presentation'
 author: 
-  Anna M. Federica R.</br>
-  Siddhi J. Dimitrios L.</br> 
+  Anna M Federica R</br>
+  Siddhi J Dimitrios L Paolo F
 date: 'May 9, 2022'
 output: 
   ioslides_presentation:
@@ -44,9 +44,7 @@ Some more on introduction
 - Giiiiiithubbbbb
 
 ## Results
-```{r pl4}
-plot()
-```
+
 
 
 ## Discussion

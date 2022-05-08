@@ -1,3 +1,6 @@
+library(dplyr)
+library(tidyverse)
+
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
@@ -79,7 +82,7 @@ ggsave("05_gene_expression.png",
 # be removed prior to each analysis
 
 PCA_data <- my_data_clean_aug %>% 
-  select(-matches("ID|Gene|weightloss|time.sec|PC|energy_consumed|efficiency|distance_class")) %>% 
+  select(-matches("ID|Gene|weightloss|time.sec|energy_consumed|efficiency|distance_class")) %>% 
   as_tibble() %>% 
   mutate(value = 1)  %>%
   spread(Sex,
@@ -275,7 +278,7 @@ PCA_distance <- PCA_fit_distance %>%
   augment(my_data_clean_aug) %>% # add original dataset back in
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
-             color = Sex)) + 
+             color = distance_class)) + 
   geom_point(size = 1.5) +
   theme_project()
 
