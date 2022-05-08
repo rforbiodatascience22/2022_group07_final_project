@@ -45,10 +45,10 @@ source(file = "R/02_clean.R")
 source(file = "R/03_augment.R")
 source(file = "R/04_analysis.R")
 source(file = "R/05_analysis.R")
-source(file = "results/Group_7.Rmd")
+
 
 # Knit ioslides ---------------------------------------------------------
 rmarkdown::render(
-  "R/Group_7.Rmd",
+  "doc/Group_7.Rmd",
   output_file = "../doc/Group_7.html"
 )
