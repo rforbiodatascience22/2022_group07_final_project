@@ -205,10 +205,10 @@ With PCA and clustering on the data, we obtained the following results-
 <div>
 <div class="columns-2">
 <center>
-![<font size="4">PCA population</font>](../results/plots/05_PCA_population.png){width=80%}
+![<font size="4">Fig.8-PCA on population</font>](../results/plots/05_PCA_population.png){width=80%}
 </center>
 <center>
-![<font size="4">PCA distance class</font>](../results/plots/05_PCA_distance.png){width=80%}
+![<font size="4">Fig.9-PCA on distance class</font>](../results/plots/05_PCA_distance.png){width=80%}
 </center>
 </div>
 </div>
