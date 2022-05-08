@@ -11,7 +11,8 @@ gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv",
 # Gene Expression analysis -------------------------------------------------
 
 # Wrangle data ------------------------------------------------------------
-#creating tibble for gene expression analysis
+#creating nested tibble for gene expression analysis, and keeping only gene name,
+#gene expression and population variables
 gene_expr <- gene_expr_data %>%
   select(-matches("ID|Sex")) %>% 
   mutate(Population = case_when(Population == "east" ~ 0,
@@ -95,6 +96,7 @@ PCA_data <- my_data_clean_aug %>%
   spread(Population,
          value,
          fill = 0 )
+
 # PCA population----------------------------------------------------------------------
 # The aim of this section is to understand if it's possible to cluster
 # the two populations thanks to the information included in the other variables
