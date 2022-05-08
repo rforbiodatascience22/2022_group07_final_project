@@ -15,9 +15,11 @@ my_data_clean_aug <- my_data_clean  %>%
          efficiency = distance / energy_consumed, 
          distance_class = case_when(distance <= 1000 ~ "short",
                                     distance > 1000 ~ "long"))
-
+remove(my_data_clean)
 
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean_aug,
           file = "data/03_my_data_clean_aug.tsv")
+
+remove(my_data_clean_aug)

@@ -1,21 +1,18 @@
-
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
-
 
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv",
                               show_col_types = FALSE)
 
-
 # Wrangle data ------------------------------------------------------------
 
-#Boxplot of the variable power for the different populations, divided by sex
+# Boxplot of the variable power for the different populations, divided by sex
 power <- my_data_clean_aug %>% 
   ggplot(aes(x = Sex,
              y = power,
              fill = Sex)) +
-  geom_boxplot()+
+  geom_boxplot() +
   facet_wrap(~ Population) +
   labs(x = "Sex",
        y = "Power",
@@ -27,10 +24,10 @@ ggsave("04_power_boxplot.png",
        path = image_path,
        device = "png")
 
-#Create a new variable 'express' which consider ID, Sex and Population just for 
-#the butterflies from which we have the gene expressions.
-#Create only one column for the value of the expressions and one for indicating 
-#which gene is referred to
+# Create a new variable 'express' which consider ID, Sex and Population just for 
+# the butterflies from which we have the gene expressions.
+# Create only one column for the value of the expressions and one for indicating 
+# which gene is referred to
 express <- my_data_clean_aug %>% #
   select(ID,
          Sex,
@@ -47,8 +44,8 @@ express <- my_data_clean_aug %>% #
                names_prefix = "Gene_",
                values_to = "Expression")
 
-#Boxplots for the all of the different gene expressions divided by populations
-#and sex
+# Boxplots for all of the different gene expressions divided by populations
+# and sex
 gene_expr <- express %>%
   ggplot(aes(x = Population,
              y = Expression,
@@ -66,10 +63,10 @@ ggsave("04_gene_expression.png",
        path = image_path,
        device = "png")
 
-##Histogram plots:
-#Comparison of the efficiency between butterflies of the two population and 
-#divided by sex
-effic<- ggplot(data = my_data_clean_aug) +
+# Histogram plots:
+# Comparison of the efficiency between butterflies of the two population and 
+# divided by sex
+effic <- ggplot(data = my_data_clean_aug) +
   geom_bar(aes(x = Population,
                y = efficiency,
                fill = Sex),
@@ -82,8 +79,8 @@ effic<- ggplot(data = my_data_clean_aug) +
   theme_project() +
   scale_fill_project()
 
-#Comparison of the distance flown by butterflies of the two population and 
-#divided by sex
+# Comparison of the distance flown by butterflies of the two population and 
+# divided by sex
 dist <- ggplot(data = my_data_clean_aug) +
   geom_bar(aes(x = Population,
                y = distance,
@@ -97,8 +94,8 @@ dist <- ggplot(data = my_data_clean_aug) +
   theme_project() +
   scale_fill_project()
 
-#Comparison of the average speed sustained by the butterflies of the two 
-#population and divided by sex
+# Comparison of the average speed sustained by the butterflies of the two 
+# population and divided by sex
 vel <- ggplot(data = my_data_clean_aug) +
   geom_bar(aes(x = Population,
                y = averagevelocity,
@@ -112,8 +109,8 @@ vel <- ggplot(data = my_data_clean_aug) +
   theme_project() +
   scale_fill_project()
 
-#Comparison of the energy consumed by the butterflies of the two population 
-#and divided by sex 
+# Comparison of the energy consumed by the butterflies of the two population 
+# and divided by sex 
 energy <- ggplot(data = my_data_clean_aug) +
   geom_bar(aes(x = Population,
                y = energy_consumed,
@@ -127,7 +124,7 @@ energy <- ggplot(data = my_data_clean_aug) +
   theme_project() +
   scale_fill_project()
 
-#Plot all the variables together 
+# Plot all the variables together 
 plots <- ggarrange(effic,
                    dist,
                    vel,
@@ -141,10 +138,10 @@ ggsave("04_flight_var.png",
        device = "png")
 
 
-#Create a new variable 'mass' which consider ID, Sex and Population for all the 
-#butterflies of the dataset.
-#Create only one column for the value of the mass registered and one for 
-#indicating the state of mass: 'pre' or 'post' experiment.
+# Create a new variable 'mass' which consider ID, Sex and Population for all the 
+# butterflies of the dataset.
+# Create only one column for the value of the mass registered and one for 
+# indicating the state of mass: 'pre' or 'post' experiment.
 mass <- my_data_clean_aug %>%
   select(ID,
          Sex,
@@ -156,27 +153,28 @@ mass <- my_data_clean_aug %>%
                names_prefix = "mass",
                values_to = "Mass") 
 
-#Histograms to compare premass and postmass of the butterflies of the two 
-#population and divided by sex 
- mass %>%
+# Histograms to compare premass and postmass of the butterflies of the two 
+# population and divided by sex 
+mass_plot <- mass %>%
   ggplot(aes(x=Population,
              y = Mass,
              fill = State_of_mass)) +
-  geom_bar(width=.7,
+  geom_bar(width = .7,
            stat = "identity",
            position = position_dodge(0.7)) +
   labs(y = "Mass (g)",
        x = "Population",
-       title = "Pre-mass and Post-mass copmarison between population",
+       title = "Pre-mass and Post-mass",
        fill = "State of mass") +
   theme_project() +
   scale_fill_project()
 
+remove(mass)
 
-#Heatmaps for Genes Expression related to the different IDs divided by 
-#population
+# Heatmaps for Genes Expression related to the different IDs divided by 
+# population
 
-#Heatmap for east population
+# Heatmap for east population
 heat_east <- express %>%
   filter(Population == "east") %>%
   ggplot(aes(x = Genes,
@@ -190,7 +188,7 @@ heat_east <- express %>%
   scale_fill_viridis_c(option = "B", direction = -1) +
   theme_project()
 
-#Heatmap for west population
+# Heatmap for west population
 heat_west <- express %>% 
   filter(Population == "west") %>% 
   ggplot(aes(x = Genes,
@@ -204,7 +202,7 @@ heat_west <- express %>%
   scale_fill_viridis_c(option = "B", direction = -1) +
   theme_project()
 
-#Plot the two heatmaps together in order to compare them in one single figure
+# Plot the two heatmaps together in order to compare them in one single figure
 heat_maps <- ggarrange(heat_east,
                        heat_west,
                        ncol = 1,
@@ -213,7 +211,7 @@ ggsave("04_heat_maps.png",
        path = image_path,
        device = "png")
 
-##Density ridge for energy consumed by the butterflies of the two population
+## Density ridge for energy consumed by the butterflies of the two population
 density_energy <- ggplot(my_data_clean_aug,
                          aes(x = energy_consumed,
                              y = Population,
@@ -229,7 +227,7 @@ ggsave("04_density_energy.png",
        path = image_path,
        device = "png")
 
-##Density ridge for efficiency of the butterflies of the two population
+## Density ridge for efficiency of the butterflies of the two population
 density_effic <- ggplot(my_data_clean_aug,
                         aes(x = efficiency,
                             y = Population,
@@ -246,18 +244,18 @@ ggsave("04_density_efficiency.png",
        path = image_path,
        device = "png")
 
-##Create plots from figure 2 in the paper
+# Create plots from figure 2 in the paper
 
-#flight duration plot: data distribution jitter and average value for the two populations, splitted by sex
-#dataset with time means to use in the plot
+# flight duration plot: data distribution jitter and average value for the two 
+# populations, splitted by sex dataset with time means to use in the plot
 time_mean <- my_data_clean_aug %>% 
   group_by(Sex, Population) %>% 
   summarise(average_time = mean(time.min))
 
-flight_duration <- ggplot(data = my_data_clean_aug,
-                          mapping = aes(y = time.min, 
-                                        x = Sex,
-                                        color = Population)) +
+flight_duration <- my_data_clean_aug %>% 
+  ggplot(mapping = aes(y = time.min,
+                       x = Sex,
+                       color = Population)) +
   geom_jitter(width = 0.2) +
   facet_grid(cols = vars(Population), 
              switch = "x") +
@@ -270,21 +268,23 @@ flight_duration <- ggplot(data = my_data_clean_aug,
         strip.text.x = element_text(size = 8),
         plot.title = element_text(hjust = 0.5),
         legend.position = "none") +
-  labs(title="Flight duration",
-       x="",
-       y="time (min)") + 
-  scale_colour_brewer(palette = "Set2") 
+  labs(title = "Flight duration",
+       x = "",
+       y = "time (min)") + 
+  scale_colour_project()
 
-#flight distance plot: data distribution jitter and average value for the two populations, splitted by sex
-#dataset with time means to use in the plot
+remove(time_mean)
+
+# flight distance plot: data distribution jitter and average value for the two 
+# populations, splitted by sex dataset with time means to use in the plot
 distance_mean <- my_data_clean_aug %>% 
   group_by(Sex,Population) %>% 
   summarise (average_distance = mean(distance))
 
-flight_distance <- ggplot(data = my_data_clean_aug,
-                          mapping = aes(y = distance, 
-                                        x = Sex,
-                                        color = Population)) +
+flight_distance <- my_data_clean_aug %>% 
+  ggplot(aes(y = distance,
+             x = Sex,
+             color = Population)) +
   geom_jitter(width = 0.2) +
   facet_grid(cols = vars(Population), 
              switch = "x") +
@@ -297,21 +297,23 @@ flight_distance <- ggplot(data = my_data_clean_aug,
         strip.text.x = element_text(size = 8),
         plot.title = element_text(hjust = 0.5),
         legend.position = "none") +
-  labs(title="Flight distance",
-       x="",
-       y=" Flight distance (km)") + 
-  scale_colour_brewer(palette = "Set2") 
+  labs(title = "Flight distance",
+       x = "",
+       y = " Flight distance (km)") + 
+  scale_colour_project() 
 
-#flight power plot: data distribution jitter and average value for the two populations, splitted by sex
-#dataset with time means to use in the plot
+remove(distance_mean)
+
+# flight power plot: data distribution jitter and average value for the two
+#populations, splitted by sex dataset with time means to use in the plot
 power_mean <- my_data_clean_aug %>% 
   group_by(Sex, Population) %>% 
   summarise(average_power = mean(power))
 
-flight_power <- ggplot(data = my_data_clean_aug,
-                       mapping = aes(y = power, 
-                                     x = Sex,
-                                     color = Population)) +
+flight_power <- my_data_clean_aug %>% 
+  ggplot(aes(y = power,
+             x = Sex,
+             color = Population)) +
   geom_jitter(width = 0.2) +
   facet_grid(cols = vars(Population), 
              switch = "x") +
@@ -323,12 +325,14 @@ flight_power <- ggplot(data = my_data_clean_aug,
         strip.placement = "outside", 
         strip.text.x = element_text(size = 9),
         plot.title = element_text(hjust = 0.5)) +
-  labs(title="Flight power",
-       x="",
-       y="power (W)") + 
-  scale_colour_brewer(palette = "Set2") 
+  labs(title = "Flight power",
+       x = "",
+       y = "power (W)") + 
+  scale_colour_project()
 
-#patchwork of plots to represent "Flight performance":
+remove(power_mean)
+
+# patchwork of plots to represent "Flight performance":
 flight_performance_plots <- flight_distance + 
   flight_duration +  
   flight_power +  
@@ -341,8 +345,8 @@ ggsave("04_flight_performance.png",
        width = 7,
        unit = "in")
 
-#t.test analysis for significative difference in flight performance variables:
-#distance
+# t.test analysis for significative difference in flight performance variables:
+# distance
 statistic_distance <- t.test(distance ~ Population, 
                     data = my_data_clean_aug)
 
@@ -361,3 +365,5 @@ statistic_efficiency <- t.test(efficiency ~ Population,
 # Write data --------------------------------------------------------------
 write_tsv(x = express,
           file = "data/04_gene_expr_data.tsv")
+
+remove(express, my_data_clean_aug, power)

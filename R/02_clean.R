@@ -1,4 +1,3 @@
-
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
@@ -11,6 +10,8 @@ my_data <- as_tibble(read_tsv(file = "data/01_my_data.tsv",
 # Eliminate unnecessary variables --------------------------------------------------------
 my_data_clean <- my_data  %>% 
     select(-(matches("Groupnumber_|Population_|Sex_|groupnumeric")))
+
+remove(my_data)
 
 # Check for NAs --------------------------------------------------------
 NAs <- na_count(my_data_clean)
@@ -41,3 +42,4 @@ map(names(plots),
 write_tsv(x = my_data_clean,
           file = "data/02_my_data_clean.tsv")
 
+remove(my_data_clean, numeric_ones)

@@ -22,6 +22,7 @@ expression_wide <- expression_raw %>%
                               Population, 
                               Sex))
 
+remove(expression_raw)
 
 #Renaming ID column so that both dataframes match
 expression_wide <- rename(expression_wide, 
@@ -31,6 +32,8 @@ expression_wide <- rename(expression_wide,
 final_data <- full_join(expression_wide,
                         morphology_raw,
                         by = "ID")
+
+remove(expression_wide, morphology_raw)
 
 # Renaming PC columns
 final_data <- rename(final_data, 
@@ -45,3 +48,4 @@ names(final_data) <- str_replace(names(final_data),
 write_tsv(x = final_data,
           file = "data/01_my_data.tsv")
 
+remove(final_data)
