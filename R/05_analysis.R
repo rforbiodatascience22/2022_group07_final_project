@@ -49,8 +49,8 @@ gene_expr_result = gene_expr_analysis %>%
              color = identified_as,
              label = gene_label)) + 
   geom_point(size = 5) +
-  geom_text(hjust=1.5, 
-            vjust=1) +
+  geom_text(hjust = 1.5, 
+            vjust = 1) +
   geom_hline(yintercept = 0.05,
              linetype = "dashed") +
   geom_text(aes(0, 
