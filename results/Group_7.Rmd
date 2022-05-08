@@ -78,7 +78,7 @@ div.footnotes {
 Analysis of two monarch populations, <span style="color:black">East</span> and <span style="color:red">West</span>:
 
   - Differences in flight performance 
-  - Correlation in the genetic profile </br>of 6 genes involved in movement
+  - Correlation in the genetic profiles to check for distinction in the two populations
 
   
 ![](introduction.png){width=110%}
@@ -94,10 +94,10 @@ DiagrammeR::grViz("digraph {
 graph [layout = dot, rankdir = LR]
 
 # define the global styles of the nodes. We can override these in box if we wish
-node [shape = oval, style = filled, fillcolor = Turquoise, fontname = Arial]
+node [shape = oval, style = filled, fillcolor = Tomato, fontname = Arial]
 
-data1 [label = 'Dataset 1', shape = folder, fillcolor = SeaGreen]
-data2 [label = 'Dataset 2', shape = folder, fillcolor = SeaGreen]
+data1 [label = 'Dataset 1', shape = folder, fillcolor = LightSeaGreen]
+data2 [label = 'Dataset 2', shape = folder, fillcolor = LightSeaGreen]
 process [label =  'Data \n Processing']
 augment [label = 'Data \n Augmentation']
 visual [label = 'Data \n Visualizations']
@@ -148,8 +148,10 @@ plots = map(numeric_ones,
 ## Results : Data visualization
 <div class="columns-2">
 
-  - Flight distance and duration are higher for Eastern monarchs which fly longer distances 
-  - Flight power and efficiency are higher for Western monarchs which fly relatively shorter distances
+We performed T-test on flight performance variables and observed the following:
+
+  - <span style="color:#66C2A5">Flight distance and duration are higher for Eastern monarchs which fly longer distances</span> 
+  - <span style="color:#FC8D62">Flight power and efficiency are higher for Western monarchs which fly relatively shorter distances</span>
 
 
 ![](plots/04_flight_performance.png){width=100%}
@@ -179,10 +181,12 @@ plots = map(numeric_ones,
 
 <div class="columns-2">
 Logistic regression to determine significance of gene expression on populations
- - All genes show no significant relation to the differences between Eastern and Western Monarchs
- - Gene C5 which is the myosin heavy chain gene, shows comparatively higher association with populations
+
+ - All genes show **no significant relation** to the differences between Eastern and Western Monarchs
+ - **Gene C5** which is the myosin heavy chain gene, shows **comparatively higher association** with populations
+
 <center>
-![](plots/05_gene_expression.png){width=95%}</center>
+![](plots/05_gene_expression.png){width=90%}</center>
 <center><font size="4">Fig.7-Logistic regression on gene expression</font></center>
 </div>
 
@@ -194,6 +198,16 @@ Principal Component Analysis and clustering
 
 ## Discussion
 
+From our analysis we can conclude the following about the <span style="color:#66C2A5">Eastern</span> and <span style="color:#FC8D62">Western</span> Monarchs:
 
+ - There is a significant difference in flight performance between the two populations
+ - There are no genetic distinction between the two populations
 
+## {data-background=butterflies.jpg data-background-size=cover}
+</br>
+</br>
+</br>
+</br>
+</br>
 
+<center><font size="20"><span style="color:white">**Thank you :)**</span></font></center>
