@@ -129,9 +129,9 @@ PCA_population_contribution <- fviz_contrib(PCA_fit_population,
                     "var",
                     axes = 1,
                     xtickslab.rt = 90) + 
-  theme_minimal() +
-  rotate_x() +
-  theme_project()
+  theme_project() +
+  xlab("") +
+  rotate_x()
 
 ggtitle("Variables percentage contribution of first Principal Components")
 
@@ -181,7 +181,8 @@ PCA_population <- PCA_fit_population %>%
              .fittedPC2, 
              color = Population)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_population.png",
        path = image_path,
@@ -224,9 +225,10 @@ PCA_sex_contribution <- fviz_contrib(PCA_fit_sex,
                                             "var",
                                             axes = 1,
                                             xtickslab.rt = 90) + 
-  theme_minimal() +
-  rotate_x() +
-  theme_project()
+  theme_project() +
+  xlab("") +
+  rotate_x()
+  
 
 ggtitle("Variables percentage contribution of first Principal Components")
 
@@ -271,7 +273,8 @@ PCA_sex <- PCA_fit_sex %>%
              .fittedPC2, 
              color = Sex)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_sex.png",
        path = image_path,
@@ -314,9 +317,9 @@ PCA_distance_contribution <- fviz_contrib(PCA_fit_distance,
                                      "var",
                                      axes = 1,
                                      xtickslab.rt = 90) + 
-  theme_minimal() +
-  rotate_x() +
-  theme_project()
+  theme_project() +
+  xlab("") +
+  rotate_x()
 
 ggtitle("Variables percentage contribution of first Principal Components")
 
@@ -360,7 +363,8 @@ PCA_distance <- PCA_fit_distance %>%
              .fittedPC2, 
              color = distance_class)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_distance.png",
        path = image_path,
@@ -411,9 +415,10 @@ PCA_genes_contribution <- fviz_contrib(PCA_genes_fit,
                                             "var",
                                             axes = 1,
                                             xtickslab.rt = 90) + 
-  theme_minimal() +
-  rotate_x() +
-  theme_project()
+  theme_project() +
+  xlab("") +
+  rotate_x()
+
 
 ggtitle("Variables percentage contribution of first Principal Components")
 
@@ -460,7 +465,8 @@ PCA_genes_population <- PCA_genes_fit %>%
              .fittedPC2, 
              color = Population)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_genes_population.png",
        path = image_path,
@@ -476,7 +482,8 @@ PCA_genes_sex <- PCA_genes_fit %>%
              .fittedPC2, 
              color = Sex)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_genes_sex.png",
        path = image_path,
@@ -492,7 +499,8 @@ PCA_genes_distance <- PCA_genes_fit %>%
              .fittedPC2, 
              color = distance_class)) + 
   geom_point(size = 1.5) +
-  theme_project()
+  theme_project() +
+  scale_colour_project()
 
 ggsave("05_PCA_genes_distance.png",
        path = image_path,

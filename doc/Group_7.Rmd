@@ -193,9 +193,11 @@ Logistic regression to determine significance of gene expression on populations
 
 
 ## Results : Modelling
-
+<div class="rows-2">
 Principal Component Analysis and clustering 
-
+![](../results/plots/05_PCA_population.png){width=90%}
+![](../results/plots/05_PCA_distance.png){width=90%}
+</div>
 
 ## Discussion
 
