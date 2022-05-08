@@ -11,7 +11,7 @@ gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv",
 # Gene Expression analysis -------------------------------------------------
 
 # Wrangle data ------------------------------------------------------------
-#creating tibble for gene expression analysis
+# creating tibble for gene expression analysis
 gene_expr <- gene_expr_data %>%
   select(-matches("ID|Sex")) %>% 
   mutate(Population = case_when(Population == "east" ~ 0,
@@ -21,7 +21,7 @@ gene_expr <- gene_expr_data %>%
   ungroup 
 
 # Model data -------------------------------------------------------------
-#logistic regression model for correlation of gene expression and population
+# logistic regression model for correlation of gene expression and population
 gene_expr_model <- gene_expr %>% 
   mutate(mdl = map(data,
                    ~glm(Population ~ Expression, 
@@ -34,7 +34,7 @@ gene_expr_model <- gene_expr %>%
   filter(str_detect(term, "Expression"))
 
 # Analysis -----------------------------------------------------------------
-#creating labels based on significance of analysis
+# creating labels based on significance of analysis
 gene_expr_analysis <- gene_expr_model %>% 
   mutate(identified_as = case_when(p.value >=0.05 ~ "Non-significant",
                                    p.value < 0.05 ~ "Significant"), 
