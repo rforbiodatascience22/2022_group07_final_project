@@ -16,6 +16,8 @@ if (!"broom" %in% installed.packages()) install.packages("broom")
 if (!"factoextra" %in% installed.packages()) install.packages("factoextra")
 if (!"patchwork" %in% installed.packages()) install.packages("patchwork")
 if (!"DiagrammeR" %in% installed.packages()) install.packages("DiagrammeR")
+if (!"knitr" %in% installed.packages()) install.packages("knitr")
+
 
 # Load libraries ----------------------------------------------------------
 library("ggthemes")
@@ -44,3 +46,9 @@ source(file = "R/03_augment.R")
 source(file = "R/04_analysis.R")
 source(file = "R/05_analysis.R")
 source(file = "results/Group_7.Rmd")
+
+# Knit ioslides ---------------------------------------------------------
+rmarkdown::render(
+  "R/Group_7.Rmd",
+  output_file = "../results/Group_7.html"
+)
