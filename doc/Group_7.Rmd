@@ -124,7 +124,7 @@ head(my_data)
  - **Statistical analysis**:
     - Visualizations of augmented variables
     - Logistic regression
-    - PCA analysis and clustering
+    - PCA analysis
 
 ## Results : Data exploration
 <div class="rows-2">
@@ -200,7 +200,7 @@ Logistic regression to determine significance of gene expression on populations
 
 ## Results : Modelling
 <div class="rows-2">
-With PCA and clustering on the data, we obtained the following results-
+Performing PCA on the data, we obtained the following results-
 
 <div>
 <div class="columns-2">
