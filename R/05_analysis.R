@@ -95,6 +95,7 @@ PCA_data <- my_data_clean_aug %>%
   spread(Population,
          value,
          fill = 0 )
+
 # PCA population----------------------------------------------------------------------
 # The aim of this section is to understand if it's possible to cluster
 # the two populations thanks to the information included in the other variables
