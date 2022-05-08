@@ -162,8 +162,8 @@ We performed T-test on flight performance variables and observed the following:
 ## Results : Data visualization
 <div class="rows-2">
 
- - Genes 203 and 379 are heavily downregulated in both populations
- - Genes C2, C4, C5 and C7 seem to be comparatively more downregulated in Eastern Monarchs
+ - **Genes 203 and 379** are heavily **downregulated** in both populations
+ - **Genes C2, C4, C5 and C7** seem to be comparatively more **downregulated** in <span style="color:#66C2A5">Eastern Monarchs</span>
 
 <div>
 <div class="columns-2">

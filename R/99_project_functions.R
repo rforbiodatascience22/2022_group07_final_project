@@ -9,7 +9,7 @@ na_count <- function(df) {
 # Common theme to be used in all figures in the project
 
 theme_project <- function() {
-  theme_gdocs(base_size = 7)
+  theme_gdocs(base_size = 15)
 }
 
 scale_colour_project <- function() {

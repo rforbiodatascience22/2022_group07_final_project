@@ -59,7 +59,8 @@ gene_expr <- express %>%
        x = "Population",
        title = "Gene expressions") +
   theme_project() +
-  scale_fill_project()
+  scale_fill_project() +
+  rotate_x()
 
 ggsave("04_gene_expression.png",
        path = image_path,
@@ -122,7 +123,7 @@ energy <- ggplot(data = my_data_clean_aug) +
            position = position_dodge(0.7)) +
   labs(y = "Energy consumed (J)",
        x = "Population",
-       title = "Energy consumption") +
+       title = "Consumption") +
   theme_project() +
   scale_fill_project()
 
