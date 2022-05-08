@@ -50,5 +50,5 @@ source(file = "results/Group_7.Rmd")
 # Knit ioslides ---------------------------------------------------------
 rmarkdown::render(
   "R/Group_7.Rmd",
-  output_file = "../results/Group_7.html"
+  output_file = "../doc/Group_7.html"
 )
