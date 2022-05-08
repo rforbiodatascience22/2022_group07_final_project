@@ -1,14 +1,17 @@
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
 
+
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- read_tsv(file = "data/03_my_data_clean_aug.tsv",
                               show_col_types = FALSE)
 gene_expr_data <- read_tsv(file = "data/04_gene_expr_data.tsv",
                            show_col_types = FALSE)
 
+# Gene Expression analysis -------------------------------------------------
+
 # Wrangle data ------------------------------------------------------------
-# creating tibble for gene expression analysis
+#creating tibble for gene expression analysis
 gene_expr <- gene_expr_data %>%
   select(-matches("ID|Sex")) %>% 
   mutate(Population = case_when(Population == "east" ~ 0,
@@ -17,10 +20,8 @@ gene_expr <- gene_expr_data %>%
   nest %>% 
   ungroup 
 
-remove(gene_expr_data)
-
 # Model data -------------------------------------------------------------
-# logistic regression model for correlation of gene expression and population
+#logistic regression model for correlation of gene expression and population
 gene_expr_model <- gene_expr %>% 
   mutate(mdl = map(data,
                    ~glm(Population ~ Expression, 
@@ -32,35 +33,36 @@ gene_expr_model <- gene_expr %>%
   unnest(mdl_tidy) %>% 
   filter(str_detect(term, "Expression"))
 
-remove(gene_expr)
-
 # Analysis -----------------------------------------------------------------
-# creating labels based on significance of analysis
+#creating labels based on significance of analysis
 gene_expr_analysis <- gene_expr_model %>% 
-  mutate(identified_as = case_when(p.value < 0.05 ~ "Significant",
-                                   TRUE ~ "Non-significant"), 
-         gene_label = case_when(identified_as == "Significant" ~ Genes,
-                                identified_as == "Non-significant" ~ "")) %>% 
-  mutate(neg_log10_p = -log10(p.value))
-
-remove(gene_expr_model)
+  mutate(identified_as = case_when(p.value >=0.05 ~ "Non-significant",
+                                   p.value < 0.05 ~ "Significant"), 
+         gene_label = case_when(identified_as == "Non-significant" ~ Genes,
+                                identified_as == "Significant" ~ Genes))
 
 # Visualize ---------------------------------------------------------------
-# plotting the significance values
+#plotting the significance values
 gene_expr_result = gene_expr_analysis %>% 
   ggplot(aes(x = Genes,
-             y = neg_log10_p,
-             colour = identified_as,
+             y = p.value,
+             color = identified_as,
              label = gene_label)) + 
-  geom_point(alpha = 0.5,
-             size = 2) +
-  geom_hline(yintercept = -log10(0.05),
+  geom_point(size = 5) +
+  geom_text(hjust=1.5, 
+            vjust=1) +
+  geom_hline(yintercept = 0.05,
              linetype = "dashed") +
+  geom_text(aes(0, 
+                0.05, 
+                label = "P-value=0.05",
+                hjust = 0, 
+                vjust = -1)) +
   theme_project() +
   theme(axis.text.x = element_blank(),
         legend.position = "bottom") +
   labs(x = "Gene",
-       y = "Minus log10(p)") 
+       y = "P-value") 
 
 
 ggsave("05_gene_expression.png",
