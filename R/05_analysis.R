@@ -180,7 +180,7 @@ PCA_population <- PCA_fit_population %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Population)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 
@@ -272,7 +272,7 @@ PCA_sex <- PCA_fit_sex %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Sex)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 
@@ -362,7 +362,7 @@ PCA_distance <- PCA_fit_distance %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = distance_class)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 
@@ -464,7 +464,7 @@ PCA_genes_population <- PCA_genes_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Population)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 
@@ -481,7 +481,7 @@ PCA_genes_sex <- PCA_genes_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = Sex)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 
@@ -498,7 +498,7 @@ PCA_genes_distance <- PCA_genes_fit %>%
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
              color = distance_class)) + 
-  geom_point(size = 1.5) +
+  geom_point(size = 3) +
   theme_project() +
   scale_colour_project()
 

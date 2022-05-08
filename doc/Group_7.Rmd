@@ -30,7 +30,6 @@ library("factoextra")
 ```
 
 ```{r}
-save.image(file='myEnvironment.RData')
 load('myEnvironment.RData')
 ```
 
@@ -128,6 +127,14 @@ head(my_data)
 ## Results : Data exploring
 <div class="rows-2">
 
+```{r}
+numeric_ones <- my_data_clean %>%
+  select(where(is.numeric),-starts_with('Gene')) %>%
+  colnames() %>%
+  set_names() #this function belongs to purr package and uses the values of vector as names
+```
+
+
 ```{r echo=TRUE}
 plots = map(numeric_ones, 
             ~datadistribution_plot("Population",
@@ -194,9 +201,17 @@ Logistic regression to determine significance of gene expression on populations
 
 ## Results : Modelling
 <div class="rows-2">
-Principal Component Analysis and clustering 
-![](../results/plots/05_PCA_population.png){width=90%}
-![](../results/plots/05_PCA_distance.png){width=90%}
+TEXT HERE
+<div>
+<div class="columns-2">
+<center>
+![<font size="4">PCA population</font>](../results/plots/05_PCA_population.png){width=70%}
+</center>
+<center>
+![<font size="4">PCA distance class</font>](../results/plots/05_PCA_distance.png){width=70%}
+</center>
+</div>
+</div>
 </div>
 
 ## Discussion

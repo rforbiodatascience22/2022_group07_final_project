@@ -45,7 +45,7 @@ source(file = "R/02_clean.R")
 source(file = "R/03_augment.R")
 source(file = "R/04_analysis.R")
 source(file = "R/05_analysis.R")
-
+save.image(file='doc/myEnvironment.RData')
 
 # Knit ioslides ---------------------------------------------------------
 rmarkdown::render(
